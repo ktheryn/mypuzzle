@@ -51,7 +51,6 @@ class _Screenv2State extends State<Screenv2> {
   );
 
 
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -154,81 +153,76 @@ class _Screenv2State extends State<Screenv2> {
                                       topRight: Radius.circular(10),
                                       bottomLeft: Radius.circular(10),
                                     ),
-                                    color: Colors.white,
+                                    color: Colors.amberAccent,
                                   ),
                                   child:
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      //TODO:FixAnimation
-                                      // AnimatedTextKit(
-                                      //   onFinished: () {
-                                      //   },
-                                      //   totalRepeatCount: 1,
-                                      //   animatedTexts: [
-                                      //     ColorizeAnimatedText(
-                                      //       'FLUTTERBOY',
-                                      //       textStyle: colorizeTextStyle,
-                                      //       colors: colorizeColors,
-                                      //       speed: Duration(milliseconds: 300),
-                                      //     ),
-                                      //   ],
-                                      // ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 5, right: 5, top: 10, bottom: 5),
-                                        child: GridView.builder(
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 4,
-                                            mainAxisSpacing: 5,
-                                            crossAxisSpacing: 5,
-                                            // childAspectRatio: 1.4,
-                                          ),
-                                          itemCount: numbers.length,
-                                          itemBuilder:
-                                              (BuildContext context, int index) {
-                                            if (numbers[index] != 0) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  for (int i = 0;
-                                                      i < results[index]!.length;
-                                                      i++) {
-                                                    int index2 = results[index]![i];
-                                                    if (numbers[index2] == 0) {
-                                                      setState(() {
-                                                        numbers[index2] =
-                                                            numbers[index];
-                                                        numbers[index] = 0;
-                                                        move++;
-                                                      });
-                                                    }
-                                                  }
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(10)),
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'images/dash_' +
-                                                              numbers[index]
-                                                                  .toString() +
-                                                              '.jpg'),
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
-                                                  child: Text(
-                                                      numbers[index].toString()),
-                                                ),
-                                              );
-                                            }
-                                            return SizedBox.shrink();
-                                          },
-                                        ),
+                                  //TODO:FixAnimation
+                                  // AnimatedTextKit(
+                                  //   onFinished: () {
+                                  //   },
+                                  //   totalRepeatCount: 1,
+                                  //   animatedTexts: [
+                                  //     ColorizeAnimatedText(
+                                  //       'FLUTTERBOY',
+                                  //       textStyle: colorizeTextStyle,
+                                  //       colors: colorizeColors,
+                                  //       speed: Duration(milliseconds: 300),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 5, right: 5, top: 10, bottom: 5),
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4,
+                                        mainAxisSpacing: 5,
+                                        crossAxisSpacing: 5,
+                                        // childAspectRatio: 1.4,
                                       ),
-                                    ],
+                                      itemCount: numbers.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        if (numbers[index] != 0) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              for (int i = 0;
+                                                  i < results[index]!.length;
+                                                  i++) {
+                                                int index2 = results[index]![i];
+                                                if (numbers[index2] == 0) {
+                                                  setState(() {
+                                                    numbers[index2] =
+                                                        numbers[index];
+                                                    numbers[index] = 0;
+                                                    move++;
+                                                  });
+                                                }
+                                              }
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'images/dash_' +
+                                                          numbers[index]
+                                                              .toString() +
+                                                          '.jpg'),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                              child: Text(
+                                                  numbers[index].toString()),
+                                            ),
+                                          );
+                                        }
+                                        return SizedBox.shrink();
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),

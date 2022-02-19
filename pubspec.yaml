@@ -78,7 +78,7 @@ flutter:
   fonts:
     - family: Cabin
       fonts:
-        - asset: Cabin-VariableFont_wdth,wght.ttf
+       - asset: fonts/Cabin-VariableFont_wdth,wght.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
