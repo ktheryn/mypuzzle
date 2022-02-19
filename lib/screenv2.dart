@@ -156,7 +156,7 @@ class _Screenv2State extends State<Screenv2> {
                                     color: Colors.amberAccent,
                                   ),
                                   child:
-                                  //TODO:FixAnimation
+                                  //TODO:FixAnimations
                                   // AnimatedTextKit(
                                   //   onFinished: () {
                                   //   },
