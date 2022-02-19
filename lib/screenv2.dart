@@ -58,7 +58,7 @@ class _Screenv2State extends State<Screenv2> {
               Container(
                 alignment: Alignment.center,
                 height: 700,
-                width: 475,
+                width: 415,//TODO: adjust together screen part 1
                 decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.only(
@@ -83,7 +83,7 @@ class _Screenv2State extends State<Screenv2> {
                       padding: const EdgeInsets.only(
                           top: 20, right: 30, left: 30, bottom: 10),
                       child: Container(
-                        height: 400,
+                        height: 340,//TODO: adjust together screen part 2
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(40),
