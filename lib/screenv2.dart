@@ -52,11 +52,14 @@ class _Screenv2State extends State<Screenv2> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 alignment: Alignment.center,
-                height: height * 0.90,
-                width: width * 0.30,
-                decoration: BoxDecoration(
+                height: 700,
+                width: 475,
+                decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(60),
@@ -67,21 +70,21 @@ class _Screenv2State extends State<Screenv2> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.black,
-                      thickness: 5,
+                      thickness: 12.5,
                       indent: 150,
                       endIndent: 150,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 20, right: 30, left: 30, bottom: 10),
                       child: Container(
-                        height: height * 0.40,
-                        decoration: BoxDecoration(
+                        height: 400,
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(40),
                             topLeft: Radius.circular(10),
@@ -93,7 +96,7 @@ class _Screenv2State extends State<Screenv2> {
                         child:  Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left:10, bottom: 70),
+                              padding: const EdgeInsets.only(left:10, bottom: 70),
                               child: Container(
                                 height: 5,
                                 width: 5,
@@ -113,9 +116,9 @@ class _Screenv2State extends State<Screenv2> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.only(left: 20, right: 30, top: 20, bottom: 20),
+                                padding: const EdgeInsets.only(left: 20, right: 30, top: 20, bottom: 20),
                                 child: Container(
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(30),
                                       topLeft: Radius.circular(10),
@@ -125,13 +128,13 @@ class _Screenv2State extends State<Screenv2> {
                                     color: Colors.amberAccent,
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
+                                    padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
                                     child: GridView.builder(
-                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 4,
                                         mainAxisSpacing: 5,
                                         crossAxisSpacing: 5,
-                                        childAspectRatio: 1.4,
+                                        // childAspectRatio: 1.4,
                                       ),
                                       itemCount: numbers.length,
                                       itemBuilder: (BuildContext context, int index) {
@@ -155,9 +158,7 @@ class _Screenv2State extends State<Screenv2> {
                                                 borderRadius:
                                                 BorderRadius.all(Radius.circular(10)),
                                                 image: DecorationImage(
-                                                  image: AssetImage('images/dash_' +
-                                                      numbers[index].toString() +
-                                                      '.jpg'),
+                                                  image: AssetImage('images/dash_' + numbers[index].toString() + '.jpg'),
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -176,21 +177,12 @@ class _Screenv2State extends State<Screenv2> {
                         ),
                       ),
                     ),
-                    // Container(
-                    //   height: 20,
-                    //   width: 100,
-                    //   decoration: BoxDecoration(
-                    //     shape: BoxShape.rectangle,
-                    //     borderRadius: BorderRadius.circular(5),
-                    //     color: Colors.teal.shade200,
-                    //   ),
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
                           padding:
-                          EdgeInsets.only(top: 5, left: 20, right: 30),
+                          const EdgeInsets.only(top: 5, left: 20, right: 30),
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -199,17 +191,17 @@ class _Screenv2State extends State<Screenv2> {
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Transform.scale(
-                                scaleY: 0.90,
-                                child: FaIcon(
+                                scaleY: 0.95,
+                                child: const FaIcon(
                                   FontAwesomeIcons.plus,
                                   color: Colors.black,
-                                  size: 85,
+                                  size: 135,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        Stack(
+                        Stack(//TODO:Tilt the buttons a bit more
                           children: [
                             Positioned(
                               left: 69,
@@ -222,7 +214,7 @@ class _Screenv2State extends State<Screenv2> {
                                     shape: BoxShape.rectangle,
                                     color: Colors.teal.shade200,
                                     borderRadius:
-                                    BorderRadius.only(
+                                    const BorderRadius.only(
                                       topRight: Radius.circular(50),
                                       topLeft: Radius.circular(30),
                                       bottomLeft: Radius.circular(50),
@@ -235,12 +227,12 @@ class _Screenv2State extends State<Screenv2> {
                             Column(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       top: 5, left: 73, right: 20, bottom: 5),
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.black,
                                     ),
@@ -248,11 +240,11 @@ class _Screenv2State extends State<Screenv2> {
                                 ),
                                 Padding(
                                   padding:
-                                  EdgeInsets.only(left: 53, right: 30, bottom: 5),
+                                  const EdgeInsets.only(left: 53, right: 30, bottom: 5),
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.black,
                                     ),
@@ -297,6 +289,9 @@ class _Screenv2State extends State<Screenv2> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
             ],
           ),
