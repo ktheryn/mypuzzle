@@ -16,6 +16,7 @@ class _Screenv2State extends State<Screenv2> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
   // List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
+  bool isFlutterBoySwitchedOn = false;
   int move = 0;
 
   Map<int, List<int>> results = {
@@ -73,7 +74,7 @@ class _Screenv2State extends State<Screenv2> {
               Container(
                 alignment: Alignment.center,
                 height: 590,
-                width: 425,
+                width: 425,//TODO: part 1
                 decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.only(
@@ -108,7 +109,7 @@ class _Screenv2State extends State<Screenv2> {
                       padding: const EdgeInsets.only(
                           top: 20, right: 30, left: 30, bottom: 10),
                       child: Container(
-                        height: 350,
+                        height: 350,//TODO: part 2
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(40),
@@ -155,22 +156,28 @@ class _Screenv2State extends State<Screenv2> {
                                     ),
                                     color: Colors.amberAccent,
                                   ),
-                                  child:
-                                  //TODO:FixAnimations
-                                  // AnimatedTextKit(
-                                  //   onFinished: () {
-                                  //   },
-                                  //   totalRepeatCount: 1,
-                                  //   animatedTexts: [
-                                  //     ColorizeAnimatedText(
-                                  //       'FLUTTERBOY',
-                                  //       textStyle: colorizeTextStyle,
-                                  //       colors: colorizeColors,
-                                  //       speed: Duration(milliseconds: 300),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  Padding(
+                                  child: !isFlutterBoySwitchedOn ? Container(
+                                    height: 350,
+                                    child: Center(
+                                      child: AnimatedTextKit(//TODO:Fixed Animations
+                                        onFinished: () {
+                                          setState(() {
+                                            isFlutterBoySwitchedOn = true;
+                                          });
+                                        },
+                                        totalRepeatCount: 1,
+                                        animatedTexts: [
+                                          ColorizeAnimatedText(
+                                            'FLUTTERBOY',
+                                            textStyle: colorizeTextStyle,
+                                            colors: colorizeColors,
+                                            speed: Duration(milliseconds: 500),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                  : Padding(
                                     padding: const EdgeInsets.only(
                                         left: 5, right: 5, top: 10, bottom: 5),
                                     child: GridView.builder(
@@ -179,7 +186,7 @@ class _Screenv2State extends State<Screenv2> {
                                         crossAxisCount: 4,
                                         mainAxisSpacing: 5,
                                         crossAxisSpacing: 5,
-                                        // childAspectRatio: 1.4,
+                                        //childAspectRatio: 1.2,
                                       ),
                                       itemCount: numbers.length,
                                       itemBuilder:
