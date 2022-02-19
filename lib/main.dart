@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mypuzzle/screenv2.dart';
-import 'screen.dart';
+import 'screenv2.dart';
 
 void main() {
   runApp(const MyPuzzle());

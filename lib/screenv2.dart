@@ -49,16 +49,17 @@ class _Screenv2State extends State<Screenv2> {
         width: width,
         color: Colors.white,
         child: SingleChildScrollView(
+          clipBehavior: Clip.hardEdge,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 alignment: Alignment.center,
-                height: 700,
-                width: 475,
+                height: 590,
+                width: 425,
                 decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.only(
@@ -83,7 +84,7 @@ class _Screenv2State extends State<Screenv2> {
                       padding: const EdgeInsets.only(
                           top: 20, right: 30, left: 30, bottom: 10),
                       child: Container(
-                        height: 400,
+                        height: 350,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(40),
@@ -195,7 +196,7 @@ class _Screenv2State extends State<Screenv2> {
                                 child: const FaIcon(
                                   FontAwesomeIcons.plus,
                                   color: Colors.black,
-                                  size: 135,
+                                  size: 85,
                                 ),
                               ),
                             ),
@@ -206,7 +207,7 @@ class _Screenv2State extends State<Screenv2> {
                             Positioned(
                               left: 69,
                               child: Transform(
-                                transform: Matrix4.skew(50, 0),
+                                transform: Matrix4.skew(53, 0),
                                 child: Container(
                                   height: 95,
                                   width: 60,
@@ -228,7 +229,7 @@ class _Screenv2State extends State<Screenv2> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 5, left: 73, right: 20, bottom: 5),
+                                      top: 5, left: 70, right: 20, bottom: 5),
                                   child: Container(
                                     height: 40,
                                     width: 40,
@@ -240,7 +241,7 @@ class _Screenv2State extends State<Screenv2> {
                                 ),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.only(left: 53, right: 30, bottom: 5),
+                                  const EdgeInsets.only(left: 35, right: 30, bottom: 5),
                                   child: Container(
                                     height: 40,
                                     width: 40,

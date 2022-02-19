@@ -48,258 +48,256 @@ class _ScreenState extends State<Screen> {
               height: height,
               width: width,
               color: Colors.white,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: height * 0.90,
-                      width: width * 0.30,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(60),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        ),
-                        color: Color(0xFF57bcb2),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: height * 0.90,
+                    width: width * 0.30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(60),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Divider(
-                            color: Colors.black,
-                            thickness: 5,
-                            indent: 150,
-                            endIndent: 150,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 20, right: 30, left: 30, bottom: 10),
-                            child: Container(
-                              height: height * 0.40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(40),
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
+                      color: Color(0xFF57bcb2),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          color: Colors.black,
+                          thickness: 5,
+                          indent: 150,
+                          endIndent: 150,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, right: 30, left: 30, bottom: 10),
+                          child: Container(
+                            height: height * 0.40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(40),
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                              ),
+                              color: Colors.black,
+                            ),
+                            child:  Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left:10, bottom: 70),
+                                  child: Container(
+                                    height: 5,
+                                    width: 5,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.red,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.red.withOpacity(0.6),
+                                          spreadRadius: 7,
+                                          blurRadius: 7,
+                                          offset: Offset(0,3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                                color: Colors.black,
-                              ),
-                              child:  Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left:10, bottom: 70),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20, right: 30, top: 20, bottom: 20),
                                     child: Container(
-                                      height: 5,
-                                      width: 5,
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.red,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.red.withOpacity(0.6),
-                                            spreadRadius: 7,
-                                            blurRadius: 7,
-                                            offset: Offset(0,3), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 20, right: 30, top: 20, bottom: 20),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(30),
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                          ),
-                                          color: Colors.amberAccent,
+                                        borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(30),
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
                                         ),
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
-                                          child: GridView.builder(
-                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 4,
-                                              mainAxisSpacing: 5,
-                                              crossAxisSpacing: 5,
-                                              childAspectRatio: 1.4,
-                                            ),
-                                            itemCount: numbers.length,
-                                            itemBuilder: (BuildContext context, int index) {
-                                              if (numbers[index] != 0) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    for (int i = 0; i < results[index]!.length; i++) {
-                                                      int index2 = results[index]![i];
-                                                      if (numbers[index2] == 0) {
-                                                        setState(() {
-                                                          numbers[index2] = numbers[index];
-                                                          numbers[index] = 0;
-                                                          move++;
-                                                        });
-                                                      }
+                                        color: Colors.amberAccent,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
+                                        child: GridView.builder(
+                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 4,
+                                            mainAxisSpacing: 5,
+                                            crossAxisSpacing: 5,
+                                            childAspectRatio: 1.4,
+                                          ),
+                                          itemCount: numbers.length,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            if (numbers[index] != 0) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  for (int i = 0; i < results[index]!.length; i++) {
+                                                    int index2 = results[index]![i];
+                                                    if (numbers[index2] == 0) {
+                                                      setState(() {
+                                                        numbers[index2] = numbers[index];
+                                                        numbers[index] = 0;
+                                                        move++;
+                                                      });
                                                     }
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                      BorderRadius.all(Radius.circular(10)),
-                                                      image: DecorationImage(
-                                                        image: AssetImage('images/dash_' +
-                                                            numbers[index].toString() +
-                                                            '.jpg'),
-                                                        fit: BoxFit.fill,
-                                                      ),
+                                                  }
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.all(Radius.circular(10)),
+                                                    image: DecorationImage(
+                                                      image: AssetImage('images/dash_' +
+                                                          numbers[index].toString() +
+                                                          '.jpg'),
+                                                      fit: BoxFit.fill,
                                                     ),
-                                                    child: Text(numbers[index].toString()),
                                                   ),
-                                                );
-                                              }
-                                              return SizedBox.shrink();
-                                            },
-                                          ),
+                                                  child: Text(numbers[index].toString()),
+                                                ),
+                                              );
+                                            }
+                                            return SizedBox.shrink();
+                                          },
                                         ),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          // Container(
-                          //   height: 20,
-                          //   width: 100,
-                          //   decoration: BoxDecoration(
-                          //     shape: BoxShape.rectangle,
-                          //     borderRadius: BorderRadius.circular(5),
-                          //     color: Colors.teal.shade200,
-                          //   ),
-                          // ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(top: 5, left: 20, right: 30),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.teal.shade200,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Transform.scale(
-                                      scaleY: 0.90,
-                                      child: FaIcon(
-                                        FontAwesomeIcons.plus,
-                                        color: Colors.black,
-                                        size: 85,
-                                      ),
+                        ),
+                        // Container(
+                        //   height: 20,
+                        //   width: 100,
+                        //   decoration: BoxDecoration(
+                        //     shape: BoxShape.rectangle,
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     color: Colors.teal.shade200,
+                        //   ),
+                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(top: 5, left: 20, right: 30),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.teal.shade200,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Transform.scale(
+                                    scaleY: 0.90,
+                                    child: FaIcon(
+                                      FontAwesomeIcons.plus,
+                                      color: Colors.black,
+                                      size: 85,
                                     ),
                                   ),
                                 ),
                               ),
-                              Stack(
-                                children: [
-                                  Positioned(
-                                    left: 69,
-                                    child: Transform(
-                                      transform: Matrix4.skew(50, 0),
+                            ),
+                            Stack(
+                              children: [
+                                Positioned(
+                                  left: 69,
+                                  child: Transform(
+                                    transform: Matrix4.skew(50, 0),
+                                    child: Container(
+                                      height: 95,
+                                      width: 60,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        color: Colors.teal.shade200,
+                                        borderRadius:
+                                        BorderRadius.only(
+                                          topRight: Radius.circular(50),
+                                          topLeft: Radius.circular(30),
+                                          bottomLeft: Radius.circular(50),
+                                          bottomRight: Radius.circular(30),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 5, left: 73, right: 20, bottom: 5),
                                       child: Container(
-                                        height: 95,
-                                        width: 60,
+                                        height: 40,
+                                        width: 40,
                                         decoration: BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          color: Colors.teal.shade200,
-                                          borderRadius:
-                                          BorderRadius.only(
-                                            topRight: Radius.circular(50),
-                                            topLeft: Radius.circular(30),
-                                            bottomLeft: Radius.circular(50),
-                                            bottomRight: Radius.circular(30),
-                                          ),
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 5, left: 73, right: 20, bottom: 5),
-                                        child: Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                          ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 53, right: 30, bottom: 5),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 53, right: 30, bottom: 5),
-                                        child: Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding:
-                                EdgeInsets.only(top: 20, left: 30, right: 30, bottom:10),
-                                child: Container(
-                                  height: 20,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding:
+                              EdgeInsets.only(top: 20, left: 30, right: 30, bottom:10),
+                              child: Container(
+                                height: 20,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                EdgeInsets.only(top: 20, left: 30, right: 30, bottom:10),
-                                child: Container(
-                                  height: 20,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                            ),
+                            Padding(
+                              padding:
+                              EdgeInsets.only(top: 20, left: 30, right: 30, bottom:10),
+                              child: Container(
+                                height: 20,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
       ),
     );
