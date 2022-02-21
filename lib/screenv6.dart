@@ -138,6 +138,7 @@ class _Screenv6State extends State<Screenv6> {
     final size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
+    int toggleIndex = 0;
 
     return Scaffold(
       body: Container(
@@ -197,22 +198,23 @@ class _Screenv6State extends State<Screenv6> {
                             activeFgColor: Colors.white,
                             inactiveBgColor: Colors.grey,
                             inactiveFgColor: Colors.white,
-                            initialLabelIndex: 1,
+                            initialLabelIndex: 0,
                             totalSwitches: 2,
                             // labels: ['ON', 'OFF'],
                             // fontSize: 10,
                             radiusStyle: true,
                             onToggle: (index) {
                               print('switched to: $index');
-                              setState(() {
-                                if (index == 1) {
+
+                              if (index == 0) {
+                                setState(() {
                                   isFlutterBoySwitchedOn = true;
-                                  index == 1;
-                                } else {
+                                });
+                              } else {
+                                setState(() {
                                   isFlutterBoySwitchedOn = false;
-                                  index == 2;
-                                }
-                              });
+                                });
+                              }
                             },
                           ),
                         ),
@@ -242,11 +244,11 @@ class _Screenv6State extends State<Screenv6> {
                                 width: 5,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.red,
+                                  color: !isFlutterBoySwitchedOn ? Colors.red : Colors.grey,
                                   boxShadow: [
                                     //TODO:REDLIGHT
                                     BoxShadow(
-                                      color: isFlutterBoySwitchedOn
+                                      color: !isFlutterBoySwitchedOn
                                           ? Colors.red.withOpacity(0.6)
                                           : Colors.transparent,
                                       spreadRadius: 7,
