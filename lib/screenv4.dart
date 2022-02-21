@@ -470,13 +470,13 @@ class _Screenv4State extends State<Screenv4> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 250, right: 10),
-                          child: Transform(
-                            transform: Matrix4.rotationZ(-0.80),
+                    Transform(
+                      transform: Matrix4.translationValues(110, 210, 0)..rotateZ(-0.80),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 250, right: 10),
                             child: Container(
                               height: 50,
                               width: 10,
@@ -487,11 +487,8 @@ class _Screenv4State extends State<Screenv4> {
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Transform(
-                            transform: Matrix4.rotationZ(-0.80),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
                             child: Container(
                               height: 50,
                               width: 10,
@@ -502,11 +499,8 @@ class _Screenv4State extends State<Screenv4> {
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Transform(
-                            transform: Matrix4.rotationZ(-0.80),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
                             child: Container(
                               height: 50,
                               width: 10,
@@ -517,11 +511,8 @@ class _Screenv4State extends State<Screenv4> {
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Transform(
-                            transform: Matrix4.rotationZ(-0.80),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
                             child: Container(
                               height: 50,
                               width: 10,
@@ -532,11 +523,8 @@ class _Screenv4State extends State<Screenv4> {
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Transform(
-                            transform: Matrix4.rotationZ(-0.80),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
                             child: Container(
                               height: 50,
                               width: 10,
@@ -547,8 +535,8 @@ class _Screenv4State extends State<Screenv4> {
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
