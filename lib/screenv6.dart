@@ -56,7 +56,7 @@ class _Screenv6State extends State<Screenv6> {
     fontFamily: 'Cabin',
   );
 
-  getscreen(screen) {
+  getScreen(screen) {
     if (screen == 0) {
       return Container(
         color: Colors.black87,
@@ -275,7 +275,7 @@ class _Screenv6State extends State<Screenv6> {
                                     ),
                                     color: Colors.amberAccent,
                                   ),
-                                  child: !isFlutterBoySwitchedOn ? getscreen(1) :  getscreen(0),
+                                  child: !isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                 ),
                               ),
                             )
