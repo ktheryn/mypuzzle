@@ -7,23 +7,22 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 
-class Screenv6 extends StatefulWidget {
-  const Screenv6({Key? key}) : super(key: key);
+class Screenv5 extends StatefulWidget {
+  const Screenv5({Key? key}) : super(key: key);
 
   @override
-  _Screenv6State createState() => _Screenv6State();
+  _Screenv5State createState() => _Screenv5State();
 }
 
-class _Screenv6State extends State<Screenv6> {
+class _Screenv5State extends State<Screenv5> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
   // List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 0;
 
-  List<int> screen = [0, 1, 2];
+  List<int> screen = [0, 1, 2, 3];
 
   Map<int, List<int>> results = {
     0: [1, 4],
@@ -69,11 +68,9 @@ class _Screenv6State extends State<Screenv6> {
           child: AnimatedTextKit(
             //TODO:Fixed Animations
             onFinished: () {
-              setState(() {
-                isFlutterBoySwitchedOn = true;
-                screenValue = 2;
-                //return getScreen(2);
-              });
+              // setState(() {
+              //   isFlutterBoySwitchedOn = true;
+              // });
             },
             totalRepeatCount: 1,
             animatedTexts: [
@@ -81,22 +78,14 @@ class _Screenv6State extends State<Screenv6> {
                 'FLUTTERBOY',
                 textStyle: colorizeTextStyle,
                 colors: colorizeColors,
-                speed: Duration(milliseconds: 400),
+                speed: Duration(milliseconds: 500),
               ),
             ],
           ),
         ),
       );
     } else if (screen == 2) {
-      return Container(
-        child: Column(
-          children: [
-            Text('Sliders'),
-            Text('Press Start'),
-          ],
-        )
-
-      );
+      return Container();
     } else {
       return Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
@@ -142,14 +131,6 @@ class _Screenv6State extends State<Screenv6> {
         ),
       );
     }
-  }
-
-  void getToggle(index){
-      if (index == 0) {
-        isFlutterBoySwitchedOn = true;
-      } else {
-        isFlutterBoySwitchedOn = false;
-      }
   }
 
   @override
@@ -224,15 +205,14 @@ class _Screenv6State extends State<Screenv6> {
                             radiusStyle: true,
                             onToggle: (index) {
                               print('switched to: $index');
-                              if (index == 1) {
+
+                              if (index == 0) {
                                 setState(() {
                                   isFlutterBoySwitchedOn = true;
-                                  screenValue = 1;
                                 });
                               } else {
                                 setState(() {
                                   isFlutterBoySwitchedOn = false;
-                                  screenValue = 0;
                                 });
                               }
                             },
@@ -258,7 +238,7 @@ class _Screenv6State extends State<Screenv6> {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(left: 10, bottom: 70),
+                              const EdgeInsets.only(left: 10, bottom: 70),
                               child: Container(
                                 height: 5,
                                 width: 5,
@@ -295,7 +275,7 @@ class _Screenv6State extends State<Screenv6> {
                                     ),
                                     color: Colors.amberAccent,
                                   ),
-                                  child: getScreen(screenValue),//!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
+                                  child: !isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                 ),
                               ),
                             )
@@ -303,6 +283,22 @@ class _Screenv6State extends State<Screenv6> {
                         ),
                       ),
                     ),
+                    // Container(
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.teal.shade100,
+                    //       borderRadius: BorderRadius.circular(20),
+                    //     ),
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: Text(
+                    //         'FLUTTERBOY',
+                    //         style: TextStyle(
+                    //             fontSize: 10,
+                    //             fontFamily: 'Cabin',
+                    //             color: Colors.black,
+                    //             fontWeight: FontWeight.bold),
+                    //       ),
+                    //     ),),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -325,11 +321,71 @@ class _Screenv6State extends State<Screenv6> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: const FaIcon(
-                                FontAwesomeIcons.plus,
-                                color: Colors.black,
-                                size: 80,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_drop_up,color: Colors.white,),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_left,color: Colors.white,),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_right,color: Colors.white,),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_drop_down,color: Colors.white,),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
+                              // child: const FaIcon(
+                              //   FontAwesomeIcons.plus,
+                              //   color: Colors.black,
+                              //   size: 80,
+                              // ),
                             ),
                           ),
                         ),
@@ -386,6 +442,7 @@ class _Screenv6State extends State<Screenv6> {
                                         child: Text(
                                           'A',
                                           style: TextStyle(
+                                            fontWeight: FontWeight.w900,
                                             color: Colors.white,
                                             fontSize: 15,
                                           ),
@@ -413,6 +470,7 @@ class _Screenv6State extends State<Screenv6> {
                                         child: Text(
                                           'B',
                                           style: TextStyle(
+                                            fontWeight: FontWeight.w900,
                                             color: Colors.white,
                                             fontSize: 15,
                                           ),
@@ -457,13 +515,16 @@ class _Screenv6State extends State<Screenv6> {
                                       ),
                                     ],
                                   ),
-                                  child: Text(
-                                    'Start',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
+                                  child: Center(
+                                    child: Text(
+                                      'Start',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
@@ -493,13 +554,16 @@ class _Screenv6State extends State<Screenv6> {
                                       ),
                                     ],
                                   ),
-                                  child: Text(
-                                    'Select',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
+                                  child: Center(
+                                    child: Text(
+                                      'Select',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
@@ -516,7 +580,7 @@ class _Screenv6State extends State<Screenv6> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 250, right: 10),
+                            const EdgeInsets.only(left: 250, right: 10),
                             child: Container(
                               height: 50,
                               width: 10,
