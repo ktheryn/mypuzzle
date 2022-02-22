@@ -38,6 +38,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   toggle_switch: ^1.4.0
   rolling_switch: ^0.0.2
+  rive: ^0.8.1
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +63,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+  - assets/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -81,6 +83,9 @@ flutter:
     - family: Cabin
       fonts:
        - asset: fonts/Cabin-VariableFont_wdth,wght.ttf
+    - family: VT323
+      fonts:
+       - asset: fonts/VT323-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

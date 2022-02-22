@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -6,15 +8,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
+import 'package:rive/rive.dart';
 
-class Screenv6 extends StatefulWidget {
-  const Screenv6({Key? key}) : super(key: key);
+class Screenv7 extends StatefulWidget {
+  const Screenv7({Key? key}) : super(key: key);
 
   @override
-  _Screenv6State createState() => _Screenv6State();
+  _Screenv7State createState() => _Screenv7State();
 }
 
-class _Screenv6State extends State<Screenv6> {
+class _Screenv7State extends State<Screenv7> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
   // List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
@@ -24,6 +27,7 @@ class _Screenv6State extends State<Screenv6> {
   int screenValue = 0;
 
   List<int> screen = [0, 1, 2];
+
 
   Map<int, List<int>> results = {
     0: [1, 4],
@@ -73,7 +77,6 @@ class _Screenv6State extends State<Screenv6> {
               setState(() {
                 isFlutterBoySwitchedOn = true;
                 screenValue = 2;
-                //return getScreen(2);
               });
             },
             totalRepeatCount: 1,
@@ -92,14 +95,33 @@ class _Screenv6State extends State<Screenv6> {
       return Container(
           color: Colors.white,
           height: 350,
-        child: Column(
-          children: [
-            Text('Sliders'),
-            Text('Press Start'),
-          ],
-        )
-
-      );
+          //TODO: ANIMATION
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Sliders Game',
+                  style: TextStyle(fontFamily: 'VT323', fontSize: 45),
+                ),
+              ),
+              Expanded(
+                child: Center(
+                  child: RiveAnimation.asset(
+                    // 'assets/6cubescont.riv',
+                    'assets/6cubes.riv',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Press Start',
+                  style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                ),
+              ),
+            ],
+          ));
     } else {
       return Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
@@ -147,12 +169,12 @@ class _Screenv6State extends State<Screenv6> {
     }
   }
 
-  void getToggle(index){
-      if (index == 0) {
-        isFlutterBoySwitchedOn = true;
-      } else {
-        isFlutterBoySwitchedOn = false;
-      }
+  void getToggle(index) {
+    if (index == 0) {
+      isFlutterBoySwitchedOn = true;
+    } else {
+      isFlutterBoySwitchedOn = false;
+    }
   }
 
   @override
@@ -182,18 +204,18 @@ class _Screenv6State extends State<Screenv6> {
                 decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(75),//60
-                    topLeft: Radius.circular(15),//10
-                    topRight: Radius.circular(15),//10
-                    bottomLeft: Radius.circular(15),//10
+                    bottomRight: Radius.circular(75), //60
+                    topLeft: Radius.circular(15), //10
+                    topRight: Radius.circular(15), //10
+                    bottomLeft: Radius.circular(15), //10
                   ),
                   boxShadow: [
                     BoxShadow(
                       blurStyle: BlurStyle.inner,
-                      color: Colors.grey,//Colors.teal,
+                      color: Colors.grey, //Colors.teal,
                       spreadRadius: 0.5,
                       blurRadius: 5,
-                      offset: Offset(4, 4),//Offset(7, 15),
+                      offset: Offset(4, 4), //Offset(7, 15),
                     ),
                   ],
                   color: Color(0xFF57bcb2),
@@ -250,10 +272,10 @@ class _Screenv6State extends State<Screenv6> {
                         height: 340, //TODO: part 2
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(40),//40
-                            topLeft: Radius.circular(10),//10
-                            topRight: Radius.circular(10),//10
-                            bottomLeft: Radius.circular(10),//10
+                            bottomRight: Radius.circular(40), //40
+                            topLeft: Radius.circular(10), //10
+                            topRight: Radius.circular(10), //10
+                            bottomLeft: Radius.circular(10), //10
                           ),
                           color: Colors.black,
                         ),
@@ -267,7 +289,9 @@ class _Screenv6State extends State<Screenv6> {
                                 width: 5,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: isFlutterBoySwitchedOn ? Colors.red : Colors.grey,
+                                  color: isFlutterBoySwitchedOn
+                                      ? Colors.red
+                                      : Colors.grey,
                                   boxShadow: [
                                     //TODO:REDLIGHT
                                     BoxShadow(
@@ -291,14 +315,15 @@ class _Screenv6State extends State<Screenv6> {
                                 child: Container(
                                   decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(10),//30
-                                      topLeft: Radius.circular(10),//10
-                                      topRight: Radius.circular(10),//10
-                                      bottomLeft: Radius.circular(10),//10
+                                      bottomRight: Radius.circular(10), //30
+                                      topLeft: Radius.circular(10), //10
+                                      topRight: Radius.circular(10), //10
+                                      bottomLeft: Radius.circular(10), //10
                                     ),
                                     //color: Colors.amberAccent,//TODO:Color background
                                   ),
-                                  child: getScreen(screenValue),//!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
+                                  child: getScreen(
+                                      screenValue), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                 ),
                               ),
                             )
@@ -339,7 +364,10 @@ class _Screenv6State extends State<Screenv6> {
                                           shape: BoxShape.circle,
                                           color: Colors.black,
                                         ),
-                                        child: Icon(Icons.arrow_drop_up,color: Colors.white,),
+                                        child: Icon(
+                                          Icons.arrow_drop_up,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -352,7 +380,10 @@ class _Screenv6State extends State<Screenv6> {
                                           shape: BoxShape.circle,
                                           color: Colors.black,
                                         ),
-                                        child: Icon(Icons.arrow_left,color: Colors.white,),
+                                        child: Icon(
+                                          Icons.arrow_left,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       Container(
                                         height: 30,
@@ -369,7 +400,10 @@ class _Screenv6State extends State<Screenv6> {
                                           shape: BoxShape.circle,
                                           color: Colors.black,
                                         ),
-                                        child: Icon(Icons.arrow_right,color: Colors.white,),
+                                        child: Icon(
+                                          Icons.arrow_right,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -382,7 +416,10 @@ class _Screenv6State extends State<Screenv6> {
                                           shape: BoxShape.circle,
                                           color: Colors.black,
                                         ),
-                                        child: Icon(Icons.arrow_drop_down,color: Colors.white,),
+                                        child: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),

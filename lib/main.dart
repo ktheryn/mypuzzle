@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mypuzzle/screenv4.dart';
 import 'package:mypuzzle/screenv5.dart';
 import 'package:mypuzzle/screenv6.dart';
+import 'package:mypuzzle/screenv7.dart';
 
 
 void main() {
@@ -15,7 +16,7 @@ class MyPuzzle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Screenv6(),
+      home: Screenv7(),
     );
   }
 }
