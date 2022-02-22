@@ -60,7 +60,7 @@ class _Screenv6State extends State<Screenv6> {
   getScreen(screen) {
     if (screen == 0) {
       return Container(
-        color: Colors.black87,
+        color: Color(0xFF9CA04C),
       );
     } else if (screen == 1) {
       return Container(
@@ -81,7 +81,7 @@ class _Screenv6State extends State<Screenv6> {
                 'FLUTTERBOY',
                 textStyle: colorizeTextStyle,
                 colors: colorizeColors,
-                speed: Duration(milliseconds: 400),
+                speed: Duration(milliseconds: 300),
               ),
             ],
           ),
@@ -179,18 +179,18 @@ class _Screenv6State extends State<Screenv6> {
                 decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(60),
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(75),//60
+                    topLeft: Radius.circular(15),//10
+                    topRight: Radius.circular(15),//10
+                    bottomLeft: Radius.circular(15),//10
                   ),
                   boxShadow: [
                     BoxShadow(
                       blurStyle: BlurStyle.inner,
-                      color: Colors.teal,
+                      color: Colors.grey,//Colors.teal,
                       spreadRadius: 0.5,
                       blurRadius: 5,
-                      offset: Offset(7, 15),
+                      offset: Offset(4, 4),//Offset(7, 15),
                     ),
                   ],
                   color: Color(0xFF57bcb2),
@@ -211,11 +211,11 @@ class _Screenv6State extends State<Screenv6> {
                             minHeight: 10,
                             cornerRadius: 10.0,
                             activeBgColors: [
-                              [Colors.green[800]!],
+                              [Colors.teal[800]!],
                               [Colors.red[800]!]
                             ],
                             activeFgColor: Colors.white,
-                            inactiveBgColor: Colors.grey,
+                            inactiveBgColor: Colors.white,
                             inactiveFgColor: Colors.white,
                             initialLabelIndex: 0,
                             totalSwitches: 2,
@@ -247,10 +247,10 @@ class _Screenv6State extends State<Screenv6> {
                         height: 340, //TODO: part 2
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(40),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(40),//40
+                            topLeft: Radius.circular(10),//10
+                            topRight: Radius.circular(10),//10
+                            bottomLeft: Radius.circular(10),//10
                           ),
                           color: Colors.black,
                         ),
@@ -264,11 +264,11 @@ class _Screenv6State extends State<Screenv6> {
                                 width: 5,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: !isFlutterBoySwitchedOn ? Colors.red : Colors.grey,
+                                  color: isFlutterBoySwitchedOn ? Colors.red : Colors.grey,
                                   boxShadow: [
                                     //TODO:REDLIGHT
                                     BoxShadow(
-                                      color: !isFlutterBoySwitchedOn
+                                      color: isFlutterBoySwitchedOn
                                           ? Colors.red.withOpacity(0.6)
                                           : Colors.transparent,
                                       spreadRadius: 7,
@@ -288,12 +288,12 @@ class _Screenv6State extends State<Screenv6> {
                                 child: Container(
                                   decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(30),
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),//30
+                                      topLeft: Radius.circular(10),//10
+                                      topRight: Radius.circular(10),//10
+                                      bottomLeft: Radius.circular(10),//10
                                     ),
-                                    color: Colors.amberAccent,
+                                    //color: Colors.amberAccent,//TODO:Color background
                                   ),
                                   child: getScreen(screenValue),//!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                 ),
@@ -325,10 +325,65 @@ class _Screenv6State extends State<Screenv6> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: const FaIcon(
-                                FontAwesomeIcons.plus,
-                                color: Colors.black,
-                                size: 80,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_drop_up,color: Colors.white,),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_left,color: Colors.white,),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_right,color: Colors.white,),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black,
+                                        ),
+                                        child: Icon(Icons.arrow_drop_down,color: Colors.white,),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -386,6 +441,7 @@ class _Screenv6State extends State<Screenv6> {
                                         child: Text(
                                           'A',
                                           style: TextStyle(
+                                            fontWeight: FontWeight.w900,
                                             color: Colors.white,
                                             fontSize: 15,
                                           ),
@@ -413,6 +469,7 @@ class _Screenv6State extends State<Screenv6> {
                                         child: Text(
                                           'B',
                                           style: TextStyle(
+                                            fontWeight: FontWeight.w900,
                                             color: Colors.white,
                                             fontSize: 15,
                                           ),
@@ -457,13 +514,16 @@ class _Screenv6State extends State<Screenv6> {
                                       ),
                                     ],
                                   ),
-                                  child: Text(
-                                    'Start',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
+                                  child: Center(
+                                    child: Text(
+                                      'Start',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
@@ -493,13 +553,16 @@ class _Screenv6State extends State<Screenv6> {
                                       ),
                                     ],
                                   ),
-                                  child: Text(
-                                    'Select',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
+                                  child: Center(
+                                    child: Text(
+                                      'Select',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
