@@ -22,7 +22,7 @@ class _Screenv6State extends State<Screenv6> {
   int move = 0;
   bool isFinished = false;
 
-  List<int> screen = [0, 1, 2, 3];
+  List<int> screen = [0, 1, 2];
 
   Map<int, List<int>> results = {
     0: [1, 4],
@@ -70,6 +70,7 @@ class _Screenv6State extends State<Screenv6> {
             onFinished: () {
               setState(() {
                 isFlutterBoySwitchedOn = true;
+                return getScreen(2);
               });
             },
             totalRepeatCount: 1,
@@ -78,14 +79,22 @@ class _Screenv6State extends State<Screenv6> {
                 'FLUTTERBOY',
                 textStyle: colorizeTextStyle,
                 colors: colorizeColors,
-                speed: Duration(milliseconds: 500),
+                speed: Duration(milliseconds: 400),
               ),
             ],
           ),
         ),
       );
     } else if (screen == 2) {
-      return Container();
+      return Container(
+        child: Column(
+          children: [
+            Text('Sliders'),
+            Text('Press Start'),
+          ],
+        )
+
+      );
     } else {
       return Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
@@ -131,6 +140,14 @@ class _Screenv6State extends State<Screenv6> {
         ),
       );
     }
+  }
+
+  void getToggle(index){
+      if (index == 0) {
+        isFlutterBoySwitchedOn = true;
+      } else {
+        isFlutterBoySwitchedOn = false;
+      }
   }
 
   @override
@@ -205,8 +222,7 @@ class _Screenv6State extends State<Screenv6> {
                             radiusStyle: true,
                             onToggle: (index) {
                               print('switched to: $index');
-
-                              if (index == 0) {
+                              if (index == 1) {
                                 setState(() {
                                   isFlutterBoySwitchedOn = true;
                                 });
@@ -283,22 +299,6 @@ class _Screenv6State extends State<Screenv6> {
                         ),
                       ),
                     ),
-                    // Container(
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.teal.shade100,
-                    //       borderRadius: BorderRadius.circular(20),
-                    //     ),
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.all(8.0),
-                    //       child: Text(
-                    //         'FLUTTERBOY',
-                    //         style: TextStyle(
-                    //             fontSize: 10,
-                    //             fontFamily: 'Cabin',
-                    //             color: Colors.black,
-                    //             fontWeight: FontWeight.bold),
-                    //       ),
-                    //     ),),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
