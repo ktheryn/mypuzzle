@@ -1,11 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:switcher_button/switcher_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
@@ -231,25 +231,13 @@ class _Screenv7State extends State<Screenv7> {
                         //TODO:TOGGLESWITCH
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
-                          child: ToggleSwitch(
-                            minWidth: 10.0,
-                            minHeight: 10,
-                            cornerRadius: 10.0,
-                            activeBgColors: [
-                              [Colors.teal[800]!],
-                              [Colors.red[800]!]
-                            ],
-                            activeFgColor: Colors.white,
-                            inactiveBgColor: Colors.white,
-                            inactiveFgColor: Colors.white,
-                            initialLabelIndex: 0,
-                            totalSwitches: 2,
-                            // labels: ['ON', 'OFF'],
-                            // fontSize: 10,
-                            radiusStyle: true,
-                            onToggle: (index) {
-                              print('switched to: $index');
-                              if (index == 1) {
+                          child: SwitcherButton(
+                            size: 28,
+                            value: false,
+                            onColor: Colors.white,
+                            offColor: Color(0xFF004D40),
+                            onChange: (value) {
+                              if (value == true) {
                                 setState(() {
                                   isFlutterBoySwitchedOn = true;
                                   screenValue = 1;
