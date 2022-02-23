@@ -20,12 +20,12 @@ class Screenv7 extends StatefulWidget {
 
 class _Screenv7State extends State<Screenv7> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-  // List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
+  //List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 0;
+  int screenValue = 3;
 
   //List<int> screen = [0, 1, 2];
 
@@ -34,7 +34,26 @@ class _Screenv7State extends State<Screenv7> {
     0: 0,
     1: 0,
     2: 1,
-    3: 1,
+    3: -1,
+  };
+
+  Map<int, List<int>> arrowMoveRules = {//LeftRightTopBottom
+    0: [-1, 1,-1, 4],
+    1: [ 0, 2,-1, 5],
+    2: [ 1, 3,-1, 6],
+    3: [ 2,-1,-1, 7],
+    4: [-1, 5, 0, 8],
+    5: [ 4, 6, 1, 9],
+    6: [ 5, 7, 2,10],
+    7: [ 6,-1, 3,11],
+    8: [-1, 9, 4,12],
+    9: [ 8,10, 5,13],
+    10: [ 9,11, 6,14],
+    11: [10,-1, 7,15],
+    12: [-1,13, 8,-1],
+    13: [12,14, 9,-1],
+    14: [13,15,10,-1],
+    15: [14,-1,11,-1],
   };
 
   Map<int, List<int>> results = {
@@ -72,6 +91,124 @@ class _Screenv7State extends State<Screenv7> {
     fontWeight: FontWeight.bold,
     fontFamily: 'Cabin',
   );
+
+  @override
+  void initState() {
+    super.initState();
+    screenOption[screenValue]=results[numbers.indexOf(0)]![0];
+  }
+
+  selectFlutterBoyControls(selectedButton){//TODO:All controls
+    if(selectedButton == "Left"){
+      if(screenValue == 2){
+        print("Left");
+        setState(() {
+          screenOption[screenValue]=1;
+        });
+      }else if(screenValue == 3){
+        print("working left");
+        if(arrowMoveRules[numbers.indexOf(0)]![0] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![0];
+          });
+        }
+      }
+    }else if(selectedButton == "Right"){
+      if(screenValue == 2){
+        print("Right");
+        setState(() {
+          screenOption[screenValue]=2;
+        });
+      }else if(screenValue == 3){
+        print("working right");
+        if(arrowMoveRules[numbers.indexOf(0)]![1] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![1];
+          });
+        }
+      }
+    }else if(selectedButton == "Up"){
+      if(screenValue == 3){
+        print("working up");
+        if(arrowMoveRules[numbers.indexOf(0)]![2] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![2];
+          });
+        }
+      }
+    }else if(selectedButton == "Down"){
+      if(screenValue == 3){
+        print("working down");
+        if(arrowMoveRules[numbers.indexOf(0)]![3] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![3];
+          });
+        }
+      }
+    }else if(selectedButton == "A"){
+      if(screenValue == 2){
+        if(screenOption[screenValue] == 1){
+          setState(() {
+            screenValue = 3;
+          });
+        }else if(screenOption[screenValue] == 2){
+          print("A Screen2");
+        }
+      }else if(screenValue == 3){
+        //TODO:add screen 3 here
+        movePuzzlePiece();
+      }
+    }else if(selectedButton == "B"){
+
+    }else if(selectedButton == "Start"){
+
+    }else if(selectedButton == "Select"){
+
+    }
+  }
+
+  setPuzzle(indexVal){
+    if(indexVal == screenOption[screenValue]){
+      return Colors.teal;
+    }else{
+      return Colors.transparent;
+    }
+    // if(screenOption[screenValue] == -1){
+    //   if(indexVal == results[numbers.indexOf(0)]![0]){
+    //     return Colors.teal;
+    //   }else{
+    //     return Colors.transparent;
+    //   }
+    // }
+    // else{
+    //   if(indexVal == screenOption[screenValue]){
+    //     return Colors.teal;
+    //   }else{
+    //     return Colors.transparent;
+    //   }
+    // }
+  }
+
+  movePuzzlePiece(){
+    int? indexVal2 = screenOption[screenValue];
+    for (int i = 0; i < results[screenOption[screenValue]]!.length; i++) {
+      int index2 = results[screenOption[screenValue]]![i];
+      if (numbers[index2] == 0 && indexVal2 != null) {
+        setState(() {
+          numbers[index2] = numbers[indexVal2];
+          numbers[indexVal2] = 0;
+          move++;
+          print("move");
+          print(move);
+          print(screenOption[screenValue]);
+          screenOption[screenValue]=index2;
+          print("After");
+          print(screenOption[screenValue]);
+        });
+
+      }
+    }
+  }
 
 
   getScreen() {
@@ -168,7 +305,7 @@ class _Screenv7State extends State<Screenv7> {
           ));
     } else if (screenValue == 3) {
       return Container(
-        color: Colors.grey,
+        color: Color(0xFF414143),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 7.5),
@@ -197,7 +334,8 @@ class _Screenv7State extends State<Screenv7> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
+                        //border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
+                        border: Border.all(width: 3.0, color: setPuzzle(index),),
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10,),),
                         image: DecorationImage(
@@ -237,40 +375,22 @@ class _Screenv7State extends State<Screenv7> {
       autofocus: true,
       focusNode: FocusNode(),
       onKey: (event){//TODO: Keyboard Keys
-        if(event.isKeyPressed(LogicalKeyboardKey.arrowUp)){
-          print("Up");
-        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowDown)){
-          print("Down");
-        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
-          if(screenValue == 2){
-            print("Left");
-            setState(() {
-              screenOption[screenValue]=1;
-            });
-          }
+        if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
+          selectFlutterBoyControls('Left');
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
-          if(screenValue == 2){
-            print("Right");
-            setState(() {
-              screenOption[screenValue]=2;
-            });
-          }
+          selectFlutterBoyControls('Right');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowUp)){
+          selectFlutterBoyControls('Up');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowDown)){
+          selectFlutterBoyControls('Down');
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyZ)){
-          if(screenValue == 2){
-            if(screenOption[screenValue] == 1){
-              setState(() {
-                screenValue = 3;
-              });
-            }else if(screenOption[screenValue] == 2){
-              print("A Screen2");
-            }
-          }
+          selectFlutterBoyControls('A');
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyX)){
-          print("B");
+          selectFlutterBoyControls('B');
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyA)){
-          print("Start");
+          selectFlutterBoyControls('Start');
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyS)){
-          print("Select");
+          selectFlutterBoyControls('Select');
         }
       },
       child: Scaffold(
@@ -434,25 +554,30 @@ class _Screenv7State extends State<Screenv7> {
                                     children: [
                                       Row(
                                         children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurStyle: BlurStyle.inner,
-                                                  color: Colors.black26,
-                                                  spreadRadius: 2,
-                                                  blurRadius: 5,
-                                                  offset: Offset(1, 1),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.arrow_drop_up,
-                                              color: Colors.white,
+                                          GestureDetector(
+                                            onTap:(){
+                                              selectFlutterBoyControls('Up');
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.inner,
+                                                    color: Colors.black26,
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_drop_up,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -461,11 +586,7 @@ class _Screenv7State extends State<Screenv7> {
                                         children: [
                                           GestureDetector(
                                             onTap:(){
-                                              if(screenValue == 2){
-                                                setState(() {
-                                                  screenOption[screenValue]=1;
-                                                });
-                                              }
+                                              selectFlutterBoyControls('Left');
                                             },
                                             child: Container(
                                               height: 30,
@@ -499,11 +620,7 @@ class _Screenv7State extends State<Screenv7> {
                                           ),
                                           GestureDetector(
                                             onTap: (){
-                                              if(screenValue == 2){
-                                                setState(() {
-                                                  screenOption[screenValue]=2;
-                                                });
-                                              }
+                                              selectFlutterBoyControls('Right');
                                             },
                                             child: Container(
                                               height: 30,
@@ -531,25 +648,30 @@ class _Screenv7State extends State<Screenv7> {
                                       ),
                                       Row(
                                         children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurStyle: BlurStyle.inner,
-                                                  color: Colors.black26,
-                                                  spreadRadius: 2,
-                                                  blurRadius: 5,
-                                                  offset: Offset(1, 1),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.white,
+                                          GestureDetector(
+                                            onTap:(){
+                                              selectFlutterBoyControls('Down');
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.inner,
+                                                    color: Colors.black26,
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -600,15 +722,7 @@ class _Screenv7State extends State<Screenv7> {
                                            //top: 16, left: 84, right: 10,),
                                       child: GestureDetector(
                                         onTap: () {
-                                          if(screenValue == 2){
-                                            if(screenOption[screenValue] == 1){
-                                              setState(() {
-                                                screenValue = 3;
-                                              });
-                                            }else if(screenOption[screenValue] == 2){
-                                              print("A button Screen2");
-                                            }
-                                          }
+                                          selectFlutterBoyControls('A');
                                         },
                                         child: Container(
                                           height: 40,
@@ -645,7 +759,7 @@ class _Screenv7State extends State<Screenv7> {
                                           // left: 40, right: 40, bottom: 10),
                                       child: GestureDetector(
                                         onTap: () {
-                                          print('Button B');
+                                          selectFlutterBoyControls('B');
                                         },
                                         child: Container(
                                           height: 40,
@@ -692,8 +806,7 @@ class _Screenv7State extends State<Screenv7> {
                                 transform: Matrix4.rotationZ(-0.75),
                                 child: GestureDetector(
                                   onTap: () {
-                                      screenValue =3;
-                                      print('star');
+                                    selectFlutterBoyControls('Start');
                                   },
                                   child: Container(
                                     height: 20,
@@ -731,7 +844,7 @@ class _Screenv7State extends State<Screenv7> {
                                   transform: Matrix4.rotationZ(-0.75),
                                   child: GestureDetector(
                                     onTap: () {
-                                      print('Yemen');
+                                      selectFlutterBoyControls('Select');
                                     },
                                     child: Container(
                                       height: 20,
