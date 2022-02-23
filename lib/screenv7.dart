@@ -165,48 +165,53 @@ class _Screenv7State extends State<Screenv7> {
               ),
             ],
           ));
-    } else {
-      return Padding(
-        padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 5),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            mainAxisSpacing: 5,
-            crossAxisSpacing: 5,
-            //childAspectRatio: 1.2,
-          ),
-          itemCount: numbers.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (numbers[index] != 0) {
-              return GestureDetector(
-                onTap: () {
-                  for (int i = 0; i < results[index]!.length; i++) {
-                    int index2 = results[index]![i];
-                    if (numbers[index2] == 0) {
-                      setState(() {
-                        numbers[index2] = numbers[index];
-                        numbers[index] = 0;
-                        move++;
-                      });
-                    }
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'images/dash_' + numbers[index].toString() + '.jpg'),
-                      fit: BoxFit.fill,
+    } else if (screenValue == 3) {
+      return Container(
+        color: Colors.grey,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 7.5),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                //childAspectRatio: 1.2,
+              ),
+              itemCount: numbers.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (numbers[index] != 0) {
+                  return GestureDetector(
+                    onTap: () {
+                      for (int i = 0; i < results[index]!.length; i++) {
+                        int index2 = results[index]![i];
+                        if (numbers[index2] == 0) {
+                          setState(() {
+                            numbers[index2] = numbers[index];
+                            numbers[index] = 0;
+                            move++;
+                          });
+                        }
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'images/dash_' + numbers[index].toString() + '.jpg'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      // child: Text(numbers[index].toString()),
                     ),
-                  ),
-                  child: Text(numbers[index].toString()),
-                ),
-              );
-            }
-            return SizedBox.shrink();
-          },
+                  );
+                }
+                return SizedBox.shrink();
+              },
+            ),
+          ),
         ),
       );
     }
@@ -235,21 +240,29 @@ class _Screenv7State extends State<Screenv7> {
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowDown)){
           print("Down");
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
-          print("Left");
           if(screenValue == 2){
+            print("Left");
             setState(() {
               screenOption[screenValue]=1;
             });
           }
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
-          print("Right");
           if(screenValue == 2){
+            print("Right");
             setState(() {
               screenOption[screenValue]=2;
             });
           }
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyZ)){
-          print("A");
+          if(screenValue == 2){
+            if(screenOption[screenValue] == 1){
+              setState(() {
+                screenValue = 3;
+              });
+            }else if(screenOption[screenValue] == 2){
+              print("A Screen2");
+            }
+          }
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyX)){
           print("B");
         }else if(event.isKeyPressed(LogicalKeyboardKey.keyA)){
@@ -263,164 +276,333 @@ class _Screenv7State extends State<Screenv7> {
           height: height,
           width: width,
           color: Colors.white,
-          child: SingleChildScrollView(
-            clipBehavior: Clip.hardEdge,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 580,
-                  width: 420, //TODO: part 1
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(75), //60
-                      topLeft: Radius.circular(15), //10
-                      topRight: Radius.circular(15), //10
-                      bottomLeft: Radius.circular(15), //10
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurStyle: BlurStyle.inner,
-                        color: Colors.grey, //Colors.teal,
-                        spreadRadius: 0.5,
-                        blurRadius: 5,
-                        offset: Offset(4, 4), //Offset(7, 15),
-                      ),
-                    ],
-                    color: Color(0xFF57bcb2),
+          child: Center(
+            child: SingleChildScrollView(
+              clipBehavior: Clip.hardEdge,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 10,
+                  Container(
+                    alignment: Alignment.center,
+                    height: 580,
+                    width: 420, //TODO: part 1
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(75), //60
+                        topLeft: Radius.circular(15), //10
+                        topRight: Radius.circular(15), //10
+                        bottomLeft: Radius.circular(15), //10
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          //TODO:TOGGLESWITCH
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: SwitcherButton(
-                              size: 28,
-                              value: false,
-                              onColor: Colors.white,
-                              offColor: Color(0xFF004D40),
-                              onChange: (value) {
-                                if (value == true) {
-                                  setState(() {
-                                    isFlutterBoySwitchedOn = true;
-                                    screenValue = 1;
-                                  });
-                                } else {
-                                  setState(() {
-                                    isFlutterBoySwitchedOn = false;
-                                    screenValue = 0;
-                                  });
-                                }
-                              },
+                      boxShadow: [
+                        BoxShadow(
+                          blurStyle: BlurStyle.inner,
+                          color: Colors.grey, //Colors.teal,
+                          spreadRadius: 0.5,
+                          blurRadius: 5,
+                          offset: Offset(4, 4), //Offset(7, 15),
+                        ),
+                      ],
+                      color: Color(0xFF57bcb2),
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            //TODO:TOGGLESWITCH
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: SwitcherButton(
+                                size: 28,
+                                value: false,
+                                onColor: Colors.white,
+                                offColor: Color(0xFF004D40),
+                                onChange: (value) {
+                                  if (value == true) {
+                                    setState(() {
+                                      isFlutterBoySwitchedOn = true;
+                                      screenValue = 1;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isFlutterBoySwitchedOn = false;
+                                      screenValue = 0;
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, right: 30, left: 30, bottom: 10),
+                          child: Container(
+                            height: 340, //TODO: part 2
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(40), //40
+                                topLeft: Radius.circular(10), //10
+                                topRight: Radius.circular(10), //10
+                                bottomLeft: Radius.circular(10), //10
+                              ),
+                              color: Colors.black,
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 10, bottom: 70),
+                                  child: Container(
+                                    height: 5,
+                                    width: 5,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: isFlutterBoySwitchedOn
+                                          ? Colors.red
+                                          : Colors.grey,
+                                      boxShadow: [
+                                        //TODO:REDLIGHT
+                                        BoxShadow(
+                                          color: isFlutterBoySwitchedOn
+                                              ? Colors.red.withOpacity(0.6)
+                                              : Colors.transparent,
+                                          spreadRadius: 7,
+                                          blurRadius: 7,
+                                          offset: const Offset(
+                                              0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                //TODO: FixScreen
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 30, top: 20, bottom: 20),
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(10), //30
+                                          topLeft: Radius.circular(10), //10
+                                          topRight: Radius.circular(10), //10
+                                          bottomLeft: Radius.circular(10), //10
+                                        ),
+                                        //color: Colors.amberAccent,//TODO:Color background
+                                      ),
+                                      child: getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, right: 30, left: 30, bottom: 10),
-                        child: Container(
-                          height: 340, //TODO: part 2
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(40), //40
-                              topLeft: Radius.circular(10), //10
-                              topRight: Radius.circular(10), //10
-                              bottomLeft: Radius.circular(10), //10
-                            ),
-                            color: Colors.black,
-                          ),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, bottom: 70),
-                                child: Container(
-                                  height: 5,
-                                  width: 5,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: isFlutterBoySwitchedOn
-                                        ? Colors.red
-                                        : Colors.grey,
-                                    boxShadow: [
-                                      //TODO:REDLIGHT
-                                      BoxShadow(
-                                        color: isFlutterBoySwitchedOn
-                                            ? Colors.red.withOpacity(0.6)
-                                            : Colors.transparent,
-                                        spreadRadius: 7,
-                                        blurRadius: 7,
-                                        offset: const Offset(
-                                            0, 3), // changes position of shadow
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 5, left: 20, right: 30),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.teal.shade200,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurStyle: BlurStyle.inner,
+                                      color: Colors.teal,
+                                      spreadRadius: 0.5,
+                                      blurRadius: 5,
+                                      offset: Offset(5, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.black,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurStyle: BlurStyle.inner,
+                                                  color: Colors.black26,
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: Offset(1, 1),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.arrow_drop_up,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap:(){
+                                              if(screenValue == 2){
+                                                setState(() {
+                                                  screenOption[screenValue]=1;
+                                                });
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.inner,
+                                                    color: Colors.black26,
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_left,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: (){
+                                              if(screenValue == 2){
+                                                setState(() {
+                                                  screenOption[screenValue]=2;
+                                                });
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.inner,
+                                                    color: Colors.black26,
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_right,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.black,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurStyle: BlurStyle.inner,
+                                                  color: Colors.black26,
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: Offset(1, 1),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              //TODO: FixScreen
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 30, top: 20, bottom: 20),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(10), //30
-                                        topLeft: Radius.circular(10), //10
-                                        topRight: Radius.circular(10), //10
-                                        bottomLeft: Radius.circular(10), //10
+                            ),
+                            Stack(
+                              //TODO:Tilt the buttons a bit more
+                              children: [
+                                Positioned(//TODO: Fixed Button A & B part 3
+                                  right: 0,
+                                  left: 10,//30
+                                  top: 70,//70
+                                  //TODO:fix the slant
+                                  child: Transform(
+                                    transform: Matrix4.rotationZ(-0.75),
+                                    child: Container(
+                                      height: 50,
+                                      width: 100,//100
+                                      decoration: BoxDecoration(
+                                        color: Colors.teal.shade200,
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(30),
+                                          topLeft: Radius.circular(30),
+                                          bottomLeft: Radius.circular(30),
+                                          bottomRight: Radius.circular(30),
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurStyle: BlurStyle.inner,
+                                            color: Colors.teal,
+                                            spreadRadius: 0.5,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 5),
+                                          )
+                                        ],
                                       ),
-                                      //color: Colors.amberAccent,//TODO:Color background
                                     ),
-                                    child: getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 5, left: 20, right: 30),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.teal.shade200,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurStyle: BlurStyle.inner,
-                                    color: Colors.teal,
-                                    spreadRadius: 0.5,
-                                    blurRadius: 5,
-                                    offset: Offset(5, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
+                                Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:10, left: 70, right: 10,),//TODO: Fixed Button A & B part 1
+                                           //top: 16, left: 84, right: 10,),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          print('button A');
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black,
@@ -434,90 +616,30 @@ class _Screenv7State extends State<Screenv7> {
                                               ),
                                             ],
                                           ),
-                                          child: Icon(
-                                            Icons.arrow_drop_up,
-                                            color: Colors.white,
+                                          child: Center(
+                                            child: Text(
+                                              'A',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap:(){
-                                            if(screenValue == 2){
-                                              setState(() {
-                                                screenOption[screenValue]=1;
-                                              });
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurStyle: BlurStyle.inner,
-                                                  color: Colors.black26,
-                                                  spreadRadius: 2,
-                                                  blurRadius: 5,
-                                                  offset: Offset(1, 1),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.arrow_left,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.transparent,
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: (){
-                                            if(screenValue == 2){
-                                              setState(() {
-                                                screenOption[screenValue]=2;
-                                              });
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurStyle: BlurStyle.inner,
-                                                  color: Colors.black26,
-                                                  spreadRadius: 2,
-                                                  blurRadius: 5,
-                                                  offset: Offset(1, 1),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.arrow_right,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 23, right: 50, bottom: 20),//TODO: Fixed Button A & B part 2
+                                          // left: 40, right: 40, bottom: 10),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          print('Button B');
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black,
@@ -527,301 +649,194 @@ class _Screenv7State extends State<Screenv7> {
                                                 color: Colors.black26,
                                                 spreadRadius: 2,
                                                 blurRadius: 5,
-                                                offset: Offset(1, 1),
+                                                offset: Offset(1 , 1),
                                               ),
                                             ],
                                           ),
-                                          child: Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.white,
+                                          child: Center(
+                                            child: Text(
+                                              'B',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
-                          ),
-                          Stack(
-                            //TODO:Tilt the buttons a bit more
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Positioned(//TODO: Fixed Button A & B part 3
-                                right: 0,
-                                left: 10,//30
-                                top: 70,//70
-                                //TODO:fix the slant
+                              Center(
                                 child: Transform(
                                   transform: Matrix4.rotationZ(-0.75),
-                                  child: Container(
-                                    height: 50,
-                                    width: 100,//100
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal.shade200,
-                                      borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(30),
-                                        topLeft: Radius.circular(30),
-                                        bottomLeft: Radius.circular(30),
-                                        bottomRight: Radius.circular(30),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('yahoo');
+                                    },
+                                    child: Container(
+                                      height: 20,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurStyle: BlurStyle.inner,
+                                            color: Colors.black26,
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2.5),
+                                          ),
+                                        ],
                                       ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurStyle: BlurStyle.inner,
-                                          color: Colors.teal,
-                                          spreadRadius: 0.5,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 5),
-                                        )
-                                      ],
+                                      child: Center(
+                                        child: Text(
+                                          'Start',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:10, left: 70, right: 10,),//TODO: Fixed Button A & B part 1
-                                         //top: 16, left: 84, right: 10,),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print('button A');
-                                      },
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.black,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurStyle: BlurStyle.inner,
-                                              color: Colors.black26,
-                                              spreadRadius: 2,
-                                              blurRadius: 5,
-                                              offset: Offset(1, 1),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'A',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w900,
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                            ),
-                                            textAlign: TextAlign.center,
+                              Center(
+                                child: Transform(
+                                  transform: Matrix4.rotationZ(-0.75),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('Yemen');
+                                    },
+                                    child: Container(
+                                      height: 20,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurStyle: BlurStyle.inner,
+                                            color: Colors.black26,
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2.5),
                                           ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Select',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 23, right: 50, bottom: 20),//TODO: Fixed Button A & B part 2
-                                        // left: 40, right: 40, bottom: 10),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print('Button B');
-                                      },
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.black,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurStyle: BlurStyle.inner,
-                                              color: Colors.black26,
-                                              spreadRadius: 2,
-                                              blurRadius: 5,
-                                              offset: Offset(1 , 1),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'B',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w900,
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: Transform(
-                                transform: Matrix4.rotationZ(-0.75),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print('yahoo');
-                                  },
-                                  child: Container(
-                                    height: 20,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurStyle: BlurStyle.inner,
-                                          color: Colors.black26,
-                                          spreadRadius: 1,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 2.5),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Start',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
+                        ),
+                        Transform(
+                          transform: Matrix4.translationValues(110, 210, 0)
+                            ..rotateZ(-0.80),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 250, right: 10),
+                                child: Container(
+                                  height: 50,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Colors.teal,
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                               ),
-                            ),
-                            Center(
-                              child: Transform(
-                                transform: Matrix4.rotationZ(-0.75),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print('Yemen');
-                                  },
-                                  child: Container(
-                                    height: 20,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurStyle: BlurStyle.inner,
-                                          color: Colors.black26,
-                                          spreadRadius: 1,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 2.5),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Select',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  height: 50,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Colors.teal,
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  height: 50,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Colors.teal,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  height: 50,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Colors.teal,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  height: 50,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Colors.teal,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(110, 210, 0)
-                          ..rotateZ(-0.80),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 250, right: 10),
-                              child: Container(
-                                height: 50,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.teal,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Container(
-                                height: 50,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.teal,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Container(
-                                height: 50,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.teal,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Container(
-                                height: 50,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.teal,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Container(
-                                height: 50,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.teal,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
