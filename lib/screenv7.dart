@@ -371,6 +371,15 @@ class _Screenv7State extends State<Screenv7> {
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurStyle: BlurStyle.inner,
+                                                color: Colors.black26,
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(1, 1),
+                                              ),
+                                            ],
                                           ),
                                           child: Icon(
                                             Icons.arrow_drop_up,
@@ -387,6 +396,15 @@ class _Screenv7State extends State<Screenv7> {
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurStyle: BlurStyle.inner,
+                                                color: Colors.black26,
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(1, 1),
+                                              ),
+                                            ],
                                           ),
                                           child: Icon(
                                             Icons.arrow_left,
@@ -407,6 +425,15 @@ class _Screenv7State extends State<Screenv7> {
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurStyle: BlurStyle.inner,
+                                                color: Colors.black26,
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(1, 1),
+                                              ),
+                                            ],
                                           ),
                                           child: Icon(
                                             Icons.arrow_right,
@@ -423,6 +450,15 @@ class _Screenv7State extends State<Screenv7> {
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurStyle: BlurStyle.inner,
+                                                color: Colors.black26,
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(1, 1),
+                                              ),
+                                            ],
                                           ),
                                           child: Icon(
                                             Icons.arrow_drop_down,
@@ -439,15 +475,16 @@ class _Screenv7State extends State<Screenv7> {
                           Stack(
                             //TODO:Tilt the buttons a bit more
                             children: [
-                              Positioned(
-                                left: 30,
-                                top: 70,
+                              Positioned(//TODO: Fixed Button A & B part 3
+                                right: 0,
+                                left: 10,//30
+                                top: 70,//70
                                 //TODO:fix the slant
                                 child: Transform(
-                                  transform: Matrix4.rotationZ(-0.95),
+                                  transform: Matrix4.rotationZ(-0.75),
                                   child: Container(
                                     height: 50,
-                                    width: 100,
+                                    width: 100,//100
                                     decoration: BoxDecoration(
                                       color: Colors.teal.shade200,
                                       borderRadius: const BorderRadius.only(
@@ -472,8 +509,8 @@ class _Screenv7State extends State<Screenv7> {
                               Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 4, left: 73, right: 20),
+                                    padding: const EdgeInsets.only(top:10, left: 70, right: 10,),//TODO: Fixed Button A & B part 1
+                                         //top: 16, left: 84, right: 10,),
                                     child: GestureDetector(
                                       onTap: () {
                                         print('button A');
@@ -484,6 +521,15 @@ class _Screenv7State extends State<Screenv7> {
                                         decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Colors.black,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurStyle: BlurStyle.inner,
+                                              color: Colors.black26,
+                                              spreadRadius: 2,
+                                              blurRadius: 5,
+                                              offset: Offset(1, 1),
+                                            ),
+                                          ],
                                         ),
                                         child: Center(
                                           child: Text(
@@ -500,8 +546,8 @@ class _Screenv7State extends State<Screenv7> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 35, right: 40, bottom: 10),
+                                    padding: const EdgeInsets.only(left: 23, right: 50, bottom: 20),//TODO: Fixed Button A & B part 2
+                                        // left: 40, right: 40, bottom: 10),
                                     child: GestureDetector(
                                       onTap: () {
                                         print('Button B');
@@ -512,6 +558,15 @@ class _Screenv7State extends State<Screenv7> {
                                         decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Colors.black,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurStyle: BlurStyle.inner,
+                                              color: Colors.black26,
+                                              spreadRadius: 2,
+                                              blurRadius: 5,
+                                              offset: Offset(1 , 1),
+                                            ),
+                                          ],
                                         ),
                                         child: Center(
                                           child: Text(
@@ -540,7 +595,7 @@ class _Screenv7State extends State<Screenv7> {
                           children: [
                             Center(
                               child: Transform(
-                                transform: Matrix4.rotationZ(-0.95),
+                                transform: Matrix4.rotationZ(-0.75),
                                 child: GestureDetector(
                                   onTap: () {
                                     print('yahoo');
@@ -556,9 +611,9 @@ class _Screenv7State extends State<Screenv7> {
                                         BoxShadow(
                                           blurStyle: BlurStyle.inner,
                                           color: Colors.black26,
-                                          spreadRadius: 0.5,
+                                          spreadRadius: 1,
                                           blurRadius: 5,
-                                          offset: Offset(0, 5),
+                                          offset: Offset(0, 2.5),
                                         ),
                                       ],
                                     ),
@@ -579,7 +634,7 @@ class _Screenv7State extends State<Screenv7> {
                             ),
                             Center(
                               child: Transform(
-                                transform: Matrix4.rotationZ(-0.95),
+                                transform: Matrix4.rotationZ(-0.75),
                                 child: GestureDetector(
                                   onTap: () {
                                     print('Yemen');
@@ -595,9 +650,9 @@ class _Screenv7State extends State<Screenv7> {
                                         BoxShadow(
                                           blurStyle: BlurStyle.inner,
                                           color: Colors.black26,
-                                          spreadRadius: 0.5,
+                                          spreadRadius: 1,
                                           blurRadius: 5,
-                                          offset: Offset(0, 5),
+                                          offset: Offset(0, 2.5),
                                         ),
                                       ],
                                     ),
