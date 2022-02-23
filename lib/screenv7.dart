@@ -27,8 +27,14 @@ class _Screenv7State extends State<Screenv7> {
   bool isFinished = false;
   int screenValue = 0;
 
-  List<int> screen = [0, 1, 2];
+  //List<int> screen = [0, 1, 2];
 
+
+  Map<int, int>  screenOption = {//Currently selected option on current screen [screen:current option]
+    0: 0,
+    1: 0,
+    2: 1,
+  };
 
   Map<int, List<int>> results = {
     0: [1, 4],
@@ -67,12 +73,12 @@ class _Screenv7State extends State<Screenv7> {
   );
 
 
-  getScreen(screen) {
-    if (screen == 0) {
+  getScreen() {
+    if (screenValue == 0) {
       return Container(
         color: Color(0xFF9CA04C),
       );
-    } else if (screen == 1) {
+    } else if (screenValue == 1) {
       return Container(
         color: Colors.white,
         height: 350,
@@ -97,7 +103,7 @@ class _Screenv7State extends State<Screenv7> {
           ),
         ),
       );
-    } else if (screen == 2) {
+    } else if (screenValue == 2) {
       return Container(
           color: Colors.white,
           height: 350,
@@ -121,9 +127,40 @@ class _Screenv7State extends State<Screenv7> {
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Press Start',
-                  style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 3.0, color: screenOption[screenValue] == 1 ? Colors.teal : Colors.transparent,),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                        ),
+                      ),
+                      child: Text(
+                        'Start',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'VT323',
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 3.0, color: screenOption[screenValue] == 2 ? Colors.teal : Colors.transparent,),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      child: Text(
+                        'Controls',
+                        style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -188,20 +225,37 @@ class _Screenv7State extends State<Screenv7> {
     final size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
-    int toggleIndex = 0;
 
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
-      onKey: (event){
+      onKey: (event){//TODO: Keyboard Keys
         if(event.isKeyPressed(LogicalKeyboardKey.arrowUp)){
           print("Up");
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowDown)){
           print("Down");
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
           print("Left");
+          if(screenValue == 2){
+            setState(() {
+              screenOption[screenValue]=1;
+            });
+          }
         }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
           print("Right");
+          if(screenValue == 2){
+            setState(() {
+              screenOption[screenValue]=2;
+            });
+          }
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyZ)){
+          print("A");
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyX)){
+          print("B");
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyA)){
+          print("Start");
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyS)){
+          print("Select");
         }
       },
       child: Scaffold(
@@ -308,7 +362,7 @@ class _Screenv7State extends State<Screenv7> {
                                             : Colors.transparent,
                                         spreadRadius: 7,
                                         blurRadius: 7,
-                                        offset: Offset(
+                                        offset: const Offset(
                                             0, 3), // changes position of shadow
                                       ),
                                     ],
@@ -330,8 +384,7 @@ class _Screenv7State extends State<Screenv7> {
                                       ),
                                       //color: Colors.amberAccent,//TODO:Color background
                                     ),
-                                    child: getScreen(
-                                        screenValue), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
+                                    child: getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                   ),
                                 ),
                               )
@@ -390,25 +443,34 @@ class _Screenv7State extends State<Screenv7> {
                                     ),
                                     Row(
                                       children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurStyle: BlurStyle.inner,
-                                                color: Colors.black26,
-                                                spreadRadius: 2,
-                                                blurRadius: 5,
-                                                offset: Offset(1, 1),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Icon(
-                                            Icons.arrow_left,
-                                            color: Colors.white,
+                                        GestureDetector(
+                                          onTap:(){
+                                            if(screenValue == 2){
+                                              setState(() {
+                                                screenOption[screenValue]=1;
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.black,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurStyle: BlurStyle.inner,
+                                                  color: Colors.black26,
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: Offset(1, 1),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.arrow_left,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                         Container(
@@ -419,25 +481,34 @@ class _Screenv7State extends State<Screenv7> {
                                             color: Colors.transparent,
                                           ),
                                         ),
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurStyle: BlurStyle.inner,
-                                                color: Colors.black26,
-                                                spreadRadius: 2,
-                                                blurRadius: 5,
-                                                offset: Offset(1, 1),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Icon(
-                                            Icons.arrow_right,
-                                            color: Colors.white,
+                                        GestureDetector(
+                                          onTap: (){
+                                            if(screenValue == 2){
+                                              setState(() {
+                                                screenOption[screenValue]=2;
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.black,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurStyle: BlurStyle.inner,
+                                                  color: Colors.black26,
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: Offset(1, 1),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.arrow_right,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ],

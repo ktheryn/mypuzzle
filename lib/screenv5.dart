@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:rolling_switch/rolling_switch.dart';
 
 class Screenv5 extends StatefulWidget {
   const Screenv5({Key? key}) : super(key: key);
