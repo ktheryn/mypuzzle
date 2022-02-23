@@ -41,6 +41,9 @@ dependencies:
   rolling_switch: ^0.0.2
   rive: ^0.8.1
   confetti: ^0.6.0
+  lottie: ^1.2.2
+
+
 
 dev_dependencies:
   flutter_test:

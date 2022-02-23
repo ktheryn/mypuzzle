@@ -11,7 +11,7 @@ import 'package:switcher_button/switcher_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
-import 'package:confetti/confetti.dart';
+import 'package:lottie/lottie.dart';
 
 class Screenv8 extends StatefulWidget {
   const Screenv8({Key? key}) : super(key: key);
@@ -29,19 +29,6 @@ class _Screenv8State extends State<Screenv8> {
   bool isFinished = false;
   int screenValue = 4;
 
-  late ConfettiController controllerTopCenter;
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      initController();
-    });
-  }
-
-  void initController() {
-    controllerTopCenter = ConfettiController(duration: const Duration(seconds: 1));
-    controllerTopCenter.play();
-  }
 
   //List<int> screen = [0, 1, 2];
 
@@ -243,15 +230,9 @@ class _Screenv8State extends State<Screenv8> {
         color: Colors.white,
         child: Stack(
           children: [
+            Lottie.asset('assets/lottie3.json', repeat: false),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildConfettiWidget(controllerTopCenter, pi / 1),
-                buildConfettiWidget(controllerTopCenter, pi / 1),
-                Container(
-                    height: 100,
-                    width: 100,
-                    child: Image.asset('images/trophy.jpg')),
                 Text(
                   'You just got Lucky!',
                   style: TextStyle(fontFamily: 'VT323', fontSize: 35, fontWeight: FontWeight.bold),
@@ -942,21 +923,4 @@ class _Screenv8State extends State<Screenv8> {
   }
 }
 
-Align buildConfettiWidget(controller, double blastDirection) {
-  return Align(
-    alignment: Alignment.topCenter,
-    child: ConfettiWidget(
-      maximumSize: Size(20, 20),
-      shouldLoop: false,
-      confettiController: controller,
-      blastDirection: blastDirection,
-      blastDirectionality: BlastDirectionality.explosive,
-      maxBlastForce: 10, // set a lower max blast force
-      minBlastForce: 8, // set a lower min blast force
-      emissionFrequency: 1,
-      numberOfParticles: 5, // a lot of particles at once
-      gravity: 1,
-    ),
-  );
-}
 
