@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,31 +11,45 @@ import 'package:switcher_button/switcher_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
+import 'package:confetti/confetti.dart';
 
-class Screenv7 extends StatefulWidget {
-  const Screenv7({Key? key}) : super(key: key);
+class Screenv8 extends StatefulWidget {
+  const Screenv8({Key? key}) : super(key: key);
 
   @override
-  _Screenv7State createState() => _Screenv7State();
+  _Screenv8State createState() => _Screenv8State();
 }
 
-class _Screenv7State extends State<Screenv7> {
+class _Screenv8State extends State<Screenv8> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
   // List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 0;
+  int screenValue = 4;
+
+  late ConfettiController controllerTopCenter;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      initController();
+    });
+  }
+
+  void initController() {
+    controllerTopCenter = ConfettiController(duration: const Duration(seconds: 1));
+    controllerTopCenter.play();
+  }
 
   //List<int> screen = [0, 1, 2];
 
-
-  Map<int, int>  screenOption = {//Currently selected option on current screen [screen:current option]
+  Map<int, int> screenOption = {
+    //Currently selected option on current screen [screen:current option]
     0: 0,
     1: 0,
     2: 1,
-    3: 1,
   };
 
   Map<int, List<int>> results = {
@@ -56,10 +71,6 @@ class _Screenv7State extends State<Screenv7> {
     15: [11, 14],
   };
 
-
-
-
-
   List<MaterialColor> colorizeColors = [
     Colors.purple,
     Colors.blue,
@@ -72,7 +83,6 @@ class _Screenv7State extends State<Screenv7> {
     fontWeight: FontWeight.bold,
     fontFamily: 'Cabin',
   );
-
 
   getScreen() {
     if (screenValue == 0) {
@@ -121,7 +131,7 @@ class _Screenv7State extends State<Screenv7> {
               Expanded(
                 child: Center(
                   child: RiveAnimation.asset(
-                     //'assets/6cubescont.riv',
+                    //'assets/6cubescont.riv',
                     'assets/6cubes.riv',
                   ),
                 ),
@@ -134,9 +144,14 @@ class _Screenv7State extends State<Screenv7> {
                     Container(
                       padding: const EdgeInsets.all(2.0),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 3.0, color: screenOption[screenValue] == 1 ? Colors.teal : Colors.transparent,),
+                        border: Border.all(
+                          width: 3.0,
+                          color: screenOption[screenValue] == 1
+                              ? Colors.teal
+                              : Colors.transparent,
+                        ),
                         borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
+                          Radius.circular(10.0),
                         ),
                       ),
                       child: Text(
@@ -151,7 +166,12 @@ class _Screenv7State extends State<Screenv7> {
                     Container(
                       padding: const EdgeInsets.all(2.0),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 3.0, color: screenOption[screenValue] == 2 ? Colors.teal : Colors.transparent,),
+                        border: Border.all(
+                          width: 3.0,
+                          color: screenOption[screenValue] == 2
+                              ? Colors.teal
+                              : Colors.transparent,
+                        ),
                         borderRadius: BorderRadius.all(
                           Radius.circular(10.0),
                         ),
@@ -171,7 +191,8 @@ class _Screenv7State extends State<Screenv7> {
         color: Colors.grey,
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 7.5),
+            padding:
+                const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 7.5),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
@@ -197,12 +218,12 @@ class _Screenv7State extends State<Screenv7> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10,),),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         image: DecorationImage(
-                          image: AssetImage(
-                              'images/dash_' + numbers[index].toString() + '.jpg'),
+                          image: AssetImage('images/dash_' +
+                              numbers[index].toString() +
+                              '.jpg'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -214,6 +235,70 @@ class _Screenv7State extends State<Screenv7> {
               },
             ),
           ),
+        ),
+      );
+      //TODO: Fix Confetti
+    } else if (screenValue == 4) {
+      return Container(
+        color: Colors.white,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildConfettiWidget(controllerTopCenter, pi / 1),
+                buildConfettiWidget(controllerTopCenter, pi / 1),
+                Container(
+                    height: 100,
+                    width: 100,
+                    child: Image.asset('images/trophy.jpg')),
+                Text(
+                  'You just got Lucky!',
+                  style: TextStyle(fontFamily: 'VT323', fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.teal,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text(
+                          'Retry',
+                          style: TextStyle(fontFamily: 'VT323', fontSize: 30),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.teal,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text(
+                          'Home',
+                          style: TextStyle(fontFamily: 'VT323', fontSize: 30),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       );
     }
@@ -236,40 +321,41 @@ class _Screenv7State extends State<Screenv7> {
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
-      onKey: (event){//TODO: Keyboard Keys
-        if(event.isKeyPressed(LogicalKeyboardKey.arrowUp)){
+      onKey: (event) {
+        //TODO: Keyboard Keys
+        if (event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
           print("Up");
-        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowDown)){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
           print("Down");
-        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
-          if(screenValue == 2){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
+          if (screenValue == 2) {
             print("Left");
             setState(() {
-              screenOption[screenValue]=1;
+              screenOption[screenValue] = 1;
             });
           }
-        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
-          if(screenValue == 2){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
+          if (screenValue == 2) {
             print("Right");
             setState(() {
-              screenOption[screenValue]=2;
+              screenOption[screenValue] = 2;
             });
           }
-        }else if(event.isKeyPressed(LogicalKeyboardKey.keyZ)){
-          if(screenValue == 2){
-            if(screenOption[screenValue] == 1){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.keyZ)) {
+          if (screenValue == 2) {
+            if (screenOption[screenValue] == 1) {
               setState(() {
                 screenValue = 3;
               });
-            }else if(screenOption[screenValue] == 2){
+            } else if (screenOption[screenValue] == 2) {
               print("A Screen2");
             }
           }
-        }else if(event.isKeyPressed(LogicalKeyboardKey.keyX)){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.keyX)) {
           print("B");
-        }else if(event.isKeyPressed(LogicalKeyboardKey.keyA)){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.keyA)) {
           print("Start");
-        }else if(event.isKeyPressed(LogicalKeyboardKey.keyS)){
+        } else if (event.isKeyPressed(LogicalKeyboardKey.keyS)) {
           print("Select");
         }
       },
@@ -360,8 +446,8 @@ class _Screenv7State extends State<Screenv7> {
                             child: Row(
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, bottom: 70),
+                                  padding: const EdgeInsets.only(
+                                      left: 10, bottom: 70),
                                   child: Container(
                                     height: 5,
                                     width: 5,
@@ -378,8 +464,8 @@ class _Screenv7State extends State<Screenv7> {
                                               : Colors.transparent,
                                           spreadRadius: 7,
                                           blurRadius: 7,
-                                          offset: const Offset(
-                                              0, 3), // changes position of shadow
+                                          offset: const Offset(0,
+                                              3), // changes position of shadow
                                         ),
                                       ],
                                     ),
@@ -389,7 +475,10 @@ class _Screenv7State extends State<Screenv7> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 20, right: 30, top: 20, bottom: 20),
+                                        left: 20,
+                                        right: 30,
+                                        top: 20,
+                                        bottom: 20),
                                     child: Container(
                                       decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
@@ -400,7 +489,8 @@ class _Screenv7State extends State<Screenv7> {
                                         ),
                                         //color: Colors.amberAccent,//TODO:Color background
                                       ),
-                                      child: getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
+                                      child:
+                                          getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                     ),
                                   ),
                                 )
@@ -460,10 +550,10 @@ class _Screenv7State extends State<Screenv7> {
                                       Row(
                                         children: [
                                           GestureDetector(
-                                            onTap:(){
-                                              if(screenValue == 2){
+                                            onTap: () {
+                                              if (screenValue == 2) {
                                                 setState(() {
-                                                  screenOption[screenValue]=1;
+                                                  screenOption[screenValue] = 1;
                                                 });
                                               }
                                             },
@@ -498,10 +588,10 @@ class _Screenv7State extends State<Screenv7> {
                                             ),
                                           ),
                                           GestureDetector(
-                                            onTap: (){
-                                              if(screenValue == 2){
+                                            onTap: () {
+                                              if (screenValue == 2) {
                                                 setState(() {
-                                                  screenOption[screenValue]=2;
+                                                  screenOption[screenValue] = 2;
                                                 });
                                               }
                                             },
@@ -562,16 +652,17 @@ class _Screenv7State extends State<Screenv7> {
                             Stack(
                               //TODO:Tilt the buttons a bit more
                               children: [
-                                Positioned(//TODO: Fixed Button A & B part 3
+                                Positioned(
+                                  //TODO: Fixed Button A & B part 3
                                   right: 0,
-                                  left: 10,//30
-                                  top: 70,//70
+                                  left: 10, //30
+                                  top: 70, //70
                                   //TODO:fix the slant
                                   child: Transform(
                                     transform: Matrix4.rotationZ(-0.75),
                                     child: Container(
                                       height: 50,
-                                      width: 100,//100
+                                      width: 100, //100
                                       decoration: BoxDecoration(
                                         color: Colors.teal.shade200,
                                         borderRadius: const BorderRadius.only(
@@ -596,19 +687,15 @@ class _Screenv7State extends State<Screenv7> {
                                 Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top:10, left: 70, right: 10,),//TODO: Fixed Button A & B part 1
-                                           //top: 16, left: 84, right: 10,),
+                                      padding: const EdgeInsets.only(
+                                        top: 10,
+                                        left: 70,
+                                        right: 10,
+                                      ), //TODO: Fixed Button A & B part 1
+                                      //top: 16, left: 84, right: 10,),
                                       child: GestureDetector(
                                         onTap: () {
-                                          if(screenValue == 2){
-                                            if(screenOption[screenValue] == 1){
-                                              setState(() {
-                                                screenValue = 3;
-                                              });
-                                            }else if(screenOption[screenValue] == 2){
-                                              print("A button Screen2");
-                                            }
-                                          }
+                                          print('button A');
                                         },
                                         child: Container(
                                           height: 40,
@@ -641,8 +728,12 @@ class _Screenv7State extends State<Screenv7> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 23, right: 50, bottom: 20),//TODO: Fixed Button A & B part 2
-                                          // left: 40, right: 40, bottom: 10),
+                                      padding: const EdgeInsets.only(
+                                          left: 23,
+                                          right: 50,
+                                          bottom:
+                                              20), //TODO: Fixed Button A & B part 2
+                                      // left: 40, right: 40, bottom: 10),
                                       child: GestureDetector(
                                         onTap: () {
                                           print('Button B');
@@ -659,7 +750,7 @@ class _Screenv7State extends State<Screenv7> {
                                                 color: Colors.black26,
                                                 spreadRadius: 2,
                                                 blurRadius: 5,
-                                                offset: Offset(1 , 1),
+                                                offset: Offset(1, 1),
                                               ),
                                             ],
                                           ),
@@ -691,10 +782,7 @@ class _Screenv7State extends State<Screenv7> {
                               Transform(
                                 transform: Matrix4.rotationZ(-0.75),
                                 child: GestureDetector(
-                                  onTap: () {
-                                      screenValue =3;
-                                      print('star');
-                                  },
+                                  onTap: () {},
                                   child: Container(
                                     height: 20,
                                     width: 50,
@@ -853,3 +941,22 @@ class _Screenv7State extends State<Screenv7> {
     );
   }
 }
+
+Align buildConfettiWidget(controller, double blastDirection) {
+  return Align(
+    alignment: Alignment.topCenter,
+    child: ConfettiWidget(
+      maximumSize: Size(20, 20),
+      shouldLoop: false,
+      confettiController: controller,
+      blastDirection: blastDirection,
+      blastDirectionality: BlastDirectionality.explosive,
+      maxBlastForce: 10, // set a lower max blast force
+      minBlastForce: 8, // set a lower min blast force
+      emissionFrequency: 1,
+      numberOfParticles: 5, // a lot of particles at once
+      gravity: 1,
+    ),
+  );
+}
+
