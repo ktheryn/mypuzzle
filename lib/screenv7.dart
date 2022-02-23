@@ -34,6 +34,7 @@ class _Screenv7State extends State<Screenv7> {
     0: 0,
     1: 0,
     2: 1,
+    3: 1,
   };
 
   Map<int, List<int>> results = {
@@ -196,8 +197,9 @@ class _Screenv7State extends State<Screenv7> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
+                        border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius: BorderRadius.all(Radius.circular(10,),),
                         image: DecorationImage(
                           image: AssetImage(
                               'images/dash_' + numbers[index].toString() + '.jpg'),
@@ -598,7 +600,15 @@ class _Screenv7State extends State<Screenv7> {
                                            //top: 16, left: 84, right: 10,),
                                       child: GestureDetector(
                                         onTap: () {
-                                          print('button A');
+                                          if(screenValue == 2){
+                                            if(screenOption[screenValue] == 1){
+                                              setState(() {
+                                                screenValue = 3;
+                                              });
+                                            }else if(screenOption[screenValue] == 2){
+                                              print("A button Screen2");
+                                            }
+                                          }
                                         },
                                         child: Container(
                                           height: 40,
