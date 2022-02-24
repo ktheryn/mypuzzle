@@ -43,6 +43,8 @@ dependencies:
   confetti: ^0.6.0
   lottie: ^1.2.2
   audioplayers: ^0.20.1
+  just_audio: ^0.9.20
+
 
 
 

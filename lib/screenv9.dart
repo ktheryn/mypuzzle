@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,38 +6,62 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:switcher_button/switcher_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
-import 'package:lottie/lottie.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
+class Screenv9 extends StatefulWidget {
+  const Screenv9({Key? key}) : super(key: key);
 
-class Screenv8 extends StatefulWidget {
-  const Screenv8({Key? key}) : super(key: key);
 
   @override
-  _Screenv8State createState() => _Screenv8State();
+  _Screenv9State createState() => _Screenv9State();
 }
 
-class _Screenv8State extends State<Screenv8> {
-  List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-  // List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
+class _Screenv9State extends State<Screenv9> {
+  //List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+  List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
   int screenValue = 0;
 
+  void sound(int playnumber) {
+    AudioCache player = AudioCache(prefix: 'assets/');
+    player.play('note$playnumber.wav');
+  }
 
-
-  //List<int> screen = [0, 1, 2];
-
-  Map<int, int> screenOption = {
-    //Currently selected option on current screen [screen:current option]
+  Map<int, int>  screenOption = {//Currently selected option on current screen [screen:current option]
     0: 0,
     1: 0,
     2: 1,
+    3: -1,
+    4: 1,
+    5: 0,
+  };
+
+  Map<int, List<int>> arrowMoveRules = {//LeftRightTopBottom
+    0: [-1, 1,-1, 4],
+    1: [ 0, 2,-1, 5],
+    2: [ 1, 3,-1, 6],
+    3: [ 2,-1,-1, 7],
+    4: [-1, 5, 0, 8],
+    5: [ 4, 6, 1, 9],
+    6: [ 5, 7, 2,10],
+    7: [ 6,-1, 3,11],
+    8: [-1, 9, 4,12],
+    9: [ 8,10, 5,13],
+    10: [ 9,11, 6,14],
+    11: [10,-1, 7,15],
+    12: [-1,13, 8,-1],
+    13: [12,14, 9,-1],
+    14: [13,15,10,-1],
+    15: [14,-1,11,-1],
   };
 
   Map<int, List<int>> results = {
@@ -73,6 +96,137 @@ class _Screenv8State extends State<Screenv8> {
     fontFamily: 'Cabin',
   );
 
+
+  selectFlutterBoyControls(selectedButton){//TODO:All controls
+    if(selectedButton == "Left"){
+      if(screenValue == 2){
+        print("Left");
+        setState(() {
+          screenOption[screenValue]=1;
+        });
+      }else if(screenValue == 3){
+        print("working left");
+        if(arrowMoveRules[numbers.indexOf(0)]![0] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![0];
+          });
+        }
+      }else if(screenValue == 4){
+        setState(() {
+          screenOption[screenValue]=1;
+        });
+      }
+    }else if(selectedButton == "Right"){
+      if(screenValue == 2){
+        print("Right");
+        setState(() {
+          screenOption[screenValue]=2;
+        });
+      }else if(screenValue == 3){
+        print("working right");
+        if(arrowMoveRules[numbers.indexOf(0)]![1] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![1];
+          });
+        }
+      }else if(screenValue == 4){
+        setState(() {
+          screenOption[screenValue]=2;
+        });
+      }
+    }else if(selectedButton == "Up"){
+      if(screenValue == 3){
+        print("working up");
+        if(arrowMoveRules[numbers.indexOf(0)]![2] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![2];
+          });
+        }
+      }
+    }else if(selectedButton == "Down"){
+      if(screenValue == 3){
+        print("working down");
+        if(arrowMoveRules[numbers.indexOf(0)]![3] != -1){
+          setState(() {
+            screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![3];
+          });
+        }
+      }
+    }else if(selectedButton == "A"){
+      if(screenValue == 2){
+        if(screenOption[screenValue] == 1){
+          setState(() {
+            screenValue = 3;
+            sound(3);
+          });
+          screenOption[screenValue]=results[numbers.indexOf(0)]![0];
+        }else if(screenOption[screenValue] == 2){
+          setState(() {
+            screenValue = 5;
+            sound(3);
+          });
+        }
+      }else if(screenValue == 3){
+        movePuzzlePiece();
+        sound(2);
+      }else if(screenValue == 4){
+        if(screenOption[screenValue] == 1){
+          setState(() {
+            screenValue = 3;
+            sound(3);
+          });
+          screenOption[screenValue]=results[numbers.indexOf(0)]![0];
+        }else if(screenOption[screenValue] == 2){
+          setState(() {
+            screenValue = 2;
+            sound(3);
+          });
+        }
+      }
+    }else if(selectedButton == "B"){
+      if(screenValue == 3){
+        setState(() {
+          screenValue = 2;
+          sound(3);
+        });
+      }else if(screenValue == 5){
+        setState(() {
+          screenValue = 2;
+          sound(3);
+        });
+      }
+    }else if(selectedButton == "Start"){
+
+    }else if(selectedButton == "Select"){
+
+    }
+  }
+
+  setPuzzle(indexVal){
+    if(indexVal == screenOption[screenValue]){
+      return Colors.teal;
+    }else{
+      return Colors.transparent;
+    }
+  }
+
+  movePuzzlePiece(){
+    int? indexVal2 = screenOption[screenValue];
+    int index2,temp=0;
+    for (int i = 0; i < results[screenOption[screenValue]]!.length; i++) {
+      index2 = results[screenOption[screenValue]]![i];
+      if (numbers[index2] == 0 && indexVal2 != null) {
+        setState(() {
+          numbers[index2] = numbers[indexVal2];
+          numbers[indexVal2] = 0;
+          move++;
+          temp = index2;
+          print("moves : "+ move.toString());
+        });
+      }
+    }
+    screenOption[screenValue] = temp;
+  }
 
   getScreen() {
     if (screenValue == 0) {
@@ -127,48 +281,46 @@ class _Screenv8State extends State<Screenv8> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
+                      height:40,
+                      width: 100,
                       padding: const EdgeInsets.all(2.0),
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 3.0,
-                          color: screenOption[screenValue] == 1
-                              ? Colors.teal
-                              : Colors.transparent,
-                        ),
+                        border: Border.all(width: 3.0, color: screenOption[screenValue] == 1 ? Colors.teal : Colors.transparent,),
                         borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                          Radius.circular(30.0),
                         ),
                       ),
-                      child: Text(
-                        'Start',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'VT323',
-                          fontSize: 25,
+                      child: Center(
+                        child: Text(
+                          'Start',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'VT323',
+                            fontSize: 25,
+                          ),
                         ),
                       ),
                     ),
                     Container(
+                      height:40,
+                      width: 100,
                       padding: const EdgeInsets.all(2.0),
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 3.0,
-                          color: screenOption[screenValue] == 2
-                              ? Colors.teal
-                              : Colors.transparent,
-                        ),
+                        border: Border.all(width: 3.0, color: screenOption[screenValue] == 2 ? Colors.teal : Colors.transparent,),
                         borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                          Radius.circular(30.0),
                         ),
                       ),
-                      child: Text(
-                        'Controls',
-                        style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                      child: Center(
+                        child: Text(
+                          'Controls',
+                          style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                        ),
                       ),
                     ),
                   ],
@@ -178,107 +330,478 @@ class _Screenv8State extends State<Screenv8> {
           ));
     } else if (screenValue == 3) {
       return Container(
-        color: Colors.grey,
-        child: Center(
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 7.5),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 5,
-                //childAspectRatio: 1.2,
+        color: Color(0xFF414143),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 270,
+              width: 270,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 0),//7.5
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                    //childAspectRatio: 1.2,
+                  ),
+                  itemCount: numbers.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (numbers[index] != 0) {
+                      return GestureDetector(
+                        onTap: () {
+                          for (int i = 0; i < results[index]!.length; i++) {
+                            int index2 = results[index]![i];
+                            if (numbers[index2] == 0) {
+                              setState(() {
+                                numbers[index2] = numbers[index];
+                                numbers[index] = 0;
+                                move++;
+                              });
+                            }
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            //border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
+                            border: Border.all(width: 3.0, color: setPuzzle(index),),
+                            borderRadius: BorderRadius.all(Radius.circular(10,),),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'images/dash_' + numbers[index].toString() + '.jpg'),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          // child: Text(numbers[index].toString()),
+                        ),
+                      );
+                    }
+                    return SizedBox.shrink();
+                  },
+                ),
               ),
-              itemCount: numbers.length,
-              itemBuilder: (BuildContext context, int index) {
-                if (numbers[index] != 0) {
-                  return GestureDetector(
-                    onTap: () {
-                      for (int i = 0; i < results[index]!.length; i++) {
-                        int index2 = results[index]![i];
-                        if (numbers[index2] == 0) {
-                          setState(() {
-                            numbers[index2] = numbers[index];
-                            numbers[index] = 0;
-                            move++;
-                          });
-                        }
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        image: DecorationImage(
-                          image: AssetImage('images/dash_' +
-                              numbers[index].toString() +
-                              '.jpg'),
-                          fit: BoxFit.fill,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 70,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0,color: Colors.teal),
+                    borderRadius: BorderRadius.all(Radius.circular(20,),),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "A",
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                          ),
                         ),
                       ),
-                      // child: Text(numbers[index].toString()),
-                    ),
-                  );
-                }
-                return SizedBox.shrink();
-              },
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Center(
+                        child: Text(
+                          "MOVE",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  "Moves:" + move.toString(),
+                  style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 25,),
+                ),
+                Container(
+                  width: 70,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0,color: Colors.teal),
+                    borderRadius: BorderRadius.all(Radius.circular(20,),),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "B",
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Center(
+                        child: Text(
+                          "EXIT",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
+          ],
         ),
       );
-      //TODO: Fix Confetti
-    } else if (screenValue == 4) {
+    }else if (screenValue == 4) {
       return Container(
-        color: Colors.white,
+        color: Color(0xFF414143),
         child: Stack(
           children: [
-            Lottie.asset('assets/lottie3.json', repeat: false),
+            Center(
+              child: Lottie.asset(
+                'winner.json',
+                width: 300.0,
+                repeat: true,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'You just got Lucky!',
-                  style: TextStyle(fontFamily: 'VT323', fontSize: 35, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Text(
+                    'You just got Lucky!',
+                    style: TextStyle(letterSpacing: 0.5,color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
                 ),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.teal,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height:40,
+                        width: 100,
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 3.0, color: screenOption[4] == 1 ? Colors.teal : Colors.transparent,),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
                         ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Center(
+                            child: Text(
+                              'Retry',
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 25),
+                            ),
+                          ),
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Text(
-                          'Retry',
-                          style: TextStyle(fontFamily: 'VT323', fontSize: 30),
+                      Container(
+                        height:40,
+                        width: 100,
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 3.0, color: screenOption[4] == 2 ? Colors.teal : Colors.transparent,),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Center(
+                            child: Text(
+                              'Home',
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 25),
+                            ),
+                          ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }else if (screenValue == 5) {
+      return Container(
+        color: Color(0xFF414143),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Text(
+                'GAME CONTROLS',
+                style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Text(
+                    'Navigate: ',
+                    style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Icon(Icons.gamepad,color: Colors.white,),
+                SizedBox(
+                  width: 82,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Text(
+                    'Move: ',
+                    style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  height: 18,
+                  width: 18,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "A",
+                      style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.teal,
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Text(
+                'KEYBOARD LAYOUT',
+                style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Left :',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 82,
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Text(
-                          'Home',
-                          style: TextStyle(fontFamily: 'VT323', fontSize: 30),
+                        Container(
+                          height: 18,
+                          width: 18,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "A",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":Z",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Right:',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_forward_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 82,
+                        ),
+                        Container(
+                          height: 18,
+                          width: 18,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "B",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":X",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Up   :',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_upward_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Container(
+                          height: 20,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Start",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":A",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Down :',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_downward_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Container(
+                          height: 20,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Select",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":S",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ],
+                ),
+              ],
+            ),
+
+            SizedBox(
+              height: 20,//TODO:Edit here
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 70,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0,color: Colors.teal),
+                    borderRadius: BorderRadius.all(Radius.circular(20,),),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "B",
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Center(
+                        child: Text(
+                          "EXIT",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
                 ),
               ],
             ),
@@ -305,42 +828,23 @@ class _Screenv8State extends State<Screenv8> {
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
-      onKey: (event) {
-        //TODO: Keyboard Keys
-        if (event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
-          print("Up");
-        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
-          print("Down");
-        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
-          if (screenValue == 2) {
-            print("Left");
-            setState(() {
-              screenOption[screenValue] = 1;
-            });
-          }
-        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
-          if (screenValue == 2) {
-            print("Right");
-            setState(() {
-              screenOption[screenValue] = 2;
-            });
-          }
-        } else if (event.isKeyPressed(LogicalKeyboardKey.keyZ)) {
-          if (screenValue == 2) {
-            if (screenOption[screenValue] == 1) {
-              setState(() {
-                screenValue = 3;
-              });
-            } else if (screenOption[screenValue] == 2) {
-              print("A Screen2");
-            }
-          }
-        } else if (event.isKeyPressed(LogicalKeyboardKey.keyX)) {
-          print("B");
-        } else if (event.isKeyPressed(LogicalKeyboardKey.keyA)) {
-          print("Start");
-        } else if (event.isKeyPressed(LogicalKeyboardKey.keyS)) {
-          print("Select");
+      onKey: (event){//TODO: Keyboard Keys
+        if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
+          selectFlutterBoyControls('Left');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
+          selectFlutterBoyControls('Right');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowUp)){
+          selectFlutterBoyControls('Up');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.arrowDown)){
+          selectFlutterBoyControls('Down');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyZ)){
+          selectFlutterBoyControls('A');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyX)){
+          selectFlutterBoyControls('B');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyA)){
+          selectFlutterBoyControls('Start');
+        }else if(event.isKeyPressed(LogicalKeyboardKey.keyS)){
+          selectFlutterBoyControls('Select');
         }
       },
       child: Scaffold(
@@ -400,12 +904,14 @@ class _Screenv8State extends State<Screenv8> {
                                   if (value == true) {
                                     setState(() {
                                       isFlutterBoySwitchedOn = true;
+                                      sound(9);
                                       screenValue = 1;
                                     });
                                   } else {
                                     setState(() {
                                       isFlutterBoySwitchedOn = false;
                                       screenValue = 0;
+                                      sound(10);
                                     });
                                   }
                                 },
@@ -430,8 +936,8 @@ class _Screenv8State extends State<Screenv8> {
                             child: Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, bottom: 70),
+                                  padding:
+                                  const EdgeInsets.only(left: 10, bottom: 70),
                                   child: Container(
                                     height: 5,
                                     width: 5,
@@ -448,8 +954,8 @@ class _Screenv8State extends State<Screenv8> {
                                               : Colors.transparent,
                                           spreadRadius: 7,
                                           blurRadius: 7,
-                                          offset: const Offset(0,
-                                              3), // changes position of shadow
+                                          offset: const Offset(
+                                              0, 3), // changes position of shadow
                                         ),
                                       ],
                                     ),
@@ -459,10 +965,7 @@ class _Screenv8State extends State<Screenv8> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 20,
-                                        right: 30,
-                                        top: 20,
-                                        bottom: 20),
+                                        left: 20, right: 30, top: 20, bottom: 20),
                                     child: Container(
                                       decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
@@ -473,8 +976,7 @@ class _Screenv8State extends State<Screenv8> {
                                         ),
                                         //color: Colors.amberAccent,//TODO:Color background
                                       ),
-                                      child:
-                                          getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
+                                      child: getScreen(), //!isFlutterBoySwitchedOn ? getScreen(1) :  getScreen(0),
                                     ),
                                   ),
                                 )
@@ -508,25 +1010,30 @@ class _Screenv8State extends State<Screenv8> {
                                     children: [
                                       Row(
                                         children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurStyle: BlurStyle.inner,
-                                                  color: Colors.black26,
-                                                  spreadRadius: 2,
-                                                  blurRadius: 5,
-                                                  offset: Offset(1, 1),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.arrow_drop_up,
-                                              color: Colors.white,
+                                          GestureDetector(
+                                            onTap:(){
+                                              selectFlutterBoyControls('Up');
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.inner,
+                                                    color: Colors.black26,
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_drop_up,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -534,12 +1041,8 @@ class _Screenv8State extends State<Screenv8> {
                                       Row(
                                         children: [
                                           GestureDetector(
-                                            onTap: () {
-                                              if (screenValue == 2) {
-                                                setState(() {
-                                                  screenOption[screenValue] = 1;
-                                                });
-                                              }
+                                            onTap:(){
+                                              selectFlutterBoyControls('Left');
                                             },
                                             child: Container(
                                               height: 30,
@@ -572,12 +1075,8 @@ class _Screenv8State extends State<Screenv8> {
                                             ),
                                           ),
                                           GestureDetector(
-                                            onTap: () {
-                                              if (screenValue == 2) {
-                                                setState(() {
-                                                  screenOption[screenValue] = 2;
-                                                });
-                                              }
+                                            onTap: (){
+                                              selectFlutterBoyControls('Right');
                                             },
                                             child: Container(
                                               height: 30,
@@ -605,25 +1104,30 @@ class _Screenv8State extends State<Screenv8> {
                                       ),
                                       Row(
                                         children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurStyle: BlurStyle.inner,
-                                                  color: Colors.black26,
-                                                  spreadRadius: 2,
-                                                  blurRadius: 5,
-                                                  offset: Offset(1, 1),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.white,
+                                          GestureDetector(
+                                            onTap:(){
+                                              selectFlutterBoyControls('Down');
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.inner,
+                                                    color: Colors.black26,
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -636,17 +1140,16 @@ class _Screenv8State extends State<Screenv8> {
                             Stack(
                               //TODO:Tilt the buttons a bit more
                               children: [
-                                Positioned(
-                                  //TODO: Fixed Button A & B part 3
+                                Positioned(//TODO: Fixed Button A & B part 3
                                   right: 0,
-                                  left: 10, //30
-                                  top: 70, //70
+                                  left: 10,//30
+                                  top: 70,//70
                                   //TODO:fix the slant
                                   child: Transform(
                                     transform: Matrix4.rotationZ(-0.75),
                                     child: Container(
                                       height: 50,
-                                      width: 100, //100
+                                      width: 100,//100
                                       decoration: BoxDecoration(
                                         color: Colors.teal.shade200,
                                         borderRadius: const BorderRadius.only(
@@ -671,15 +1174,11 @@ class _Screenv8State extends State<Screenv8> {
                                 Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 10,
-                                        left: 70,
-                                        right: 10,
-                                      ), //TODO: Fixed Button A & B part 1
+                                      padding: const EdgeInsets.only(top:10, left: 70, right: 10,),//TODO: Fixed Button A & B part 1
                                       //top: 16, left: 84, right: 10,),
                                       child: GestureDetector(
                                         onTap: () {
-                                          print('button A');
+                                          selectFlutterBoyControls('A');
                                         },
                                         child: Container(
                                           height: 40,
@@ -712,15 +1211,11 @@ class _Screenv8State extends State<Screenv8> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 23,
-                                          right: 50,
-                                          bottom:
-                                              20), //TODO: Fixed Button A & B part 2
+                                      padding: const EdgeInsets.only(left: 23, right: 50, bottom: 20),//TODO: Fixed Button A & B part 2
                                       // left: 40, right: 40, bottom: 10),
                                       child: GestureDetector(
                                         onTap: () {
-                                          print('Button B');
+                                          selectFlutterBoyControls('B');
                                         },
                                         child: Container(
                                           height: 40,
@@ -734,7 +1229,7 @@ class _Screenv8State extends State<Screenv8> {
                                                 color: Colors.black26,
                                                 spreadRadius: 2,
                                                 blurRadius: 5,
-                                                offset: Offset(1, 1),
+                                                offset: Offset(1 , 1),
                                               ),
                                             ],
                                           ),
@@ -766,7 +1261,9 @@ class _Screenv8State extends State<Screenv8> {
                               Transform(
                                 transform: Matrix4.rotationZ(-0.75),
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    selectFlutterBoyControls('Start');
+                                  },
                                   child: Container(
                                     height: 20,
                                     width: 50,
@@ -803,7 +1300,7 @@ class _Screenv8State extends State<Screenv8> {
                                   transform: Matrix4.rotationZ(-0.75),
                                   child: GestureDetector(
                                     onTap: () {
-                                      print('Yemen');
+                                      selectFlutterBoyControls('Select');
                                     },
                                     child: Container(
                                       height: 20,
@@ -848,7 +1345,7 @@ class _Screenv8State extends State<Screenv8> {
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 250, right: 10),
+                                const EdgeInsets.only(left: 250, right: 10),
                                 child: Container(
                                   height: 50,
                                   width: 10,
@@ -925,5 +1422,3 @@ class _Screenv8State extends State<Screenv8> {
     );
   }
 }
-
-
