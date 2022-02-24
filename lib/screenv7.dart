@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:switcher_button/switcher_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
@@ -19,13 +20,13 @@ class Screenv7 extends StatefulWidget {
 }
 
 class _Screenv7State extends State<Screenv7> {
-  List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-  //List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
+  //List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+  List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 3;
+  int screenValue = 5;
 
   //List<int> screen = [0, 1, 2];
 
@@ -35,6 +36,8 @@ class _Screenv7State extends State<Screenv7> {
     1: 0,
     2: 1,
     3: -1,
+    4: 1,
+    5: 0,
   };
 
   Map<int, List<int>> arrowMoveRules = {//LeftRightTopBottom
@@ -92,11 +95,6 @@ class _Screenv7State extends State<Screenv7> {
     fontFamily: 'Cabin',
   );
 
-  @override
-  void initState() {
-    super.initState();
-    screenOption[screenValue]=results[numbers.indexOf(0)]![0];
-  }
 
   selectFlutterBoyControls(selectedButton){//TODO:All controls
     if(selectedButton == "Left"){
@@ -112,6 +110,10 @@ class _Screenv7State extends State<Screenv7> {
             screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![0];
           });
         }
+      }else if(screenValue == 4){
+        setState(() {
+          screenOption[screenValue]=1;
+        });
       }
     }else if(selectedButton == "Right"){
       if(screenValue == 2){
@@ -126,6 +128,10 @@ class _Screenv7State extends State<Screenv7> {
             screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![1];
           });
         }
+      }else if(screenValue == 4){
+        setState(() {
+          screenOption[screenValue]=2;
+        });
       }
     }else if(selectedButton == "Up"){
       if(screenValue == 3){
@@ -151,15 +157,30 @@ class _Screenv7State extends State<Screenv7> {
           setState(() {
             screenValue = 3;
           });
+          screenOption[screenValue]=results[numbers.indexOf(0)]![0];
         }else if(screenOption[screenValue] == 2){
           print("A Screen2");
         }
       }else if(screenValue == 3){
-        //TODO:add screen 3 here
         movePuzzlePiece();
+      }else if(screenValue == 4){
+        if(screenOption[screenValue] == 1){
+          setState(() {
+            screenValue = 3;
+          });
+          screenOption[screenValue]=results[numbers.indexOf(0)]![0];
+        }else if(screenOption[screenValue] == 2){
+          setState(() {
+            screenValue = 2;
+          });
+        }
       }
     }else if(selectedButton == "B"){
-
+      if(screenValue == 3){
+        setState(() {
+          screenValue = 2;
+        });
+      }
     }else if(selectedButton == "Start"){
 
     }else if(selectedButton == "Select"){
@@ -173,41 +194,24 @@ class _Screenv7State extends State<Screenv7> {
     }else{
       return Colors.transparent;
     }
-    // if(screenOption[screenValue] == -1){
-    //   if(indexVal == results[numbers.indexOf(0)]![0]){
-    //     return Colors.teal;
-    //   }else{
-    //     return Colors.transparent;
-    //   }
-    // }
-    // else{
-    //   if(indexVal == screenOption[screenValue]){
-    //     return Colors.teal;
-    //   }else{
-    //     return Colors.transparent;
-    //   }
-    // }
   }
 
   movePuzzlePiece(){
     int? indexVal2 = screenOption[screenValue];
+    int index2,temp=0;
     for (int i = 0; i < results[screenOption[screenValue]]!.length; i++) {
-      int index2 = results[screenOption[screenValue]]![i];
+      index2 = results[screenOption[screenValue]]![i];
       if (numbers[index2] == 0 && indexVal2 != null) {
         setState(() {
           numbers[index2] = numbers[indexVal2];
           numbers[indexVal2] = 0;
           move++;
-          print("move");
-          print(move);
-          print(screenOption[screenValue]);
-          screenOption[screenValue]=index2;
-          print("After");
-          print(screenOption[screenValue]);
+          temp = index2;
+          print("moves : "+ move.toString());
         });
-
       }
     }
+    screenOption[screenValue] = temp;
   }
 
 
@@ -264,38 +268,46 @@ class _Screenv7State extends State<Screenv7> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
+                      height:40,
+                      width: 100,
                       padding: const EdgeInsets.all(2.0),
                       decoration: BoxDecoration(
                         border: Border.all(width: 3.0, color: screenOption[screenValue] == 1 ? Colors.teal : Colors.transparent,),
                         borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
+                            Radius.circular(30.0),
                         ),
                       ),
-                      child: Text(
-                        'Start',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'VT323',
-                          fontSize: 25,
+                      child: Center(
+                        child: Text(
+                          'Start',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'VT323',
+                            fontSize: 25,
+                          ),
                         ),
                       ),
                     ),
                     Container(
+                      height:40,
+                      width: 100,
                       padding: const EdgeInsets.all(2.0),
                       decoration: BoxDecoration(
                         border: Border.all(width: 3.0, color: screenOption[screenValue] == 2 ? Colors.teal : Colors.transparent,),
                         borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                          Radius.circular(30.0),
                         ),
                       ),
-                      child: Text(
-                        'Controls',
-                        style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                      child: Center(
+                        child: Text(
+                          'Controls',
+                          style: TextStyle(fontFamily: 'VT323', fontSize: 25),
+                        ),
                       ),
                     ),
                   ],
@@ -306,52 +318,452 @@ class _Screenv7State extends State<Screenv7> {
     } else if (screenValue == 3) {
       return Container(
         color: Color(0xFF414143),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 7.5),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 5,
-                //childAspectRatio: 1.2,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 270,
+              width: 270,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5, top: 7.5, bottom: 0),//7.5
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                    //childAspectRatio: 1.2,
+                  ),
+                  itemCount: numbers.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (numbers[index] != 0) {
+                      return GestureDetector(
+                        onTap: () {
+                          for (int i = 0; i < results[index]!.length; i++) {
+                            int index2 = results[index]![i];
+                            if (numbers[index2] == 0) {
+                              setState(() {
+                                numbers[index2] = numbers[index];
+                                numbers[index] = 0;
+                                move++;
+                              });
+                            }
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            //border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
+                            border: Border.all(width: 3.0, color: setPuzzle(index),),
+                            borderRadius: BorderRadius.all(Radius.circular(10,),),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'images/dash_' + numbers[index].toString() + '.jpg'),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          // child: Text(numbers[index].toString()),
+                        ),
+                      );
+                    }
+                    return SizedBox.shrink();
+                  },
+                ),
               ),
-              itemCount: numbers.length,
-              itemBuilder: (BuildContext context, int index) {
-                if (numbers[index] != 0) {
-                  return GestureDetector(
-                    onTap: () {
-                      for (int i = 0; i < results[index]!.length; i++) {
-                        int index2 = results[index]![i];
-                        if (numbers[index2] == 0) {
-                          setState(() {
-                            numbers[index2] = numbers[index];
-                            numbers[index] = 0;
-                            move++;
-                          });
-                        }
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        //border: Border.all(width: 3.0, color: screenOption[screenValue] == numbers[index] ? Colors.teal : Colors.transparent,),
-                        border: Border.all(width: 3.0, color: setPuzzle(index),),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10,),),
-                        image: DecorationImage(
-                          image: AssetImage(
-                              'images/dash_' + numbers[index].toString() + '.jpg'),
-                          fit: BoxFit.fill,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 70,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0,color: Colors.teal),
+                    borderRadius: BorderRadius.all(Radius.circular(20,),),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "A",
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                          ),
                         ),
                       ),
-                      // child: Text(numbers[index].toString()),
-                    ),
-                  );
-                }
-                return SizedBox.shrink();
-              },
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Center(
+                        child: Text(
+                          "MOVE",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  "Moves:" + move.toString(),
+                  style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 25,),
+                ),
+                Container(
+                  width: 70,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0,color: Colors.teal),
+                    borderRadius: BorderRadius.all(Radius.circular(20,),),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "B",
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Center(
+                        child: Text(
+                          "EXIT",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
+          ],
+        ),
+      );
+    }else if (screenValue == 4) {
+      return Container(
+        color: Color(0xFF414143),
+        child: Stack(
+          children: [
+            Center(
+              child: Lottie.asset(
+                'winner.json',
+                width: 300.0,
+                repeat: true,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Text(
+                    'You just got Lucky!',
+                    style: TextStyle(letterSpacing: 0.5,color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height:40,
+                        width: 100,
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 3.0, color: screenOption[4] == 1 ? Colors.teal : Colors.transparent,),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Center(
+                            child: Text(
+                              'Retry',
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height:40,
+                        width: 100,
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 3.0, color: screenOption[4] == 2 ? Colors.teal : Colors.transparent,),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Center(
+                            child: Text(
+                              'Home',
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }else if (screenValue == 5) {
+      return Container(
+        color: Color(0xFF414143),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Text(
+                'GAME CONTROLS',
+                style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Text(
+                'Left',
+                style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Text(
+                'KEYBOARD',
+                style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Left :',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 82,
+                        ),
+                        Container(
+                          height: 18,
+                          width: 18,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "A",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":Z",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Right:',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 82,
+                        ),
+                        Container(
+                          height: 18,
+                          width: 18,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "B",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":X",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Up   :',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Container(
+                          height: 20,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Start",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":A",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Text(
+                            'Down :',
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Container(
+                          height: 20,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Select",
+                              style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          ":S",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            SizedBox(
+              height: 50,//TODO:Edit here
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 70,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0,color: Colors.teal),
+                    borderRadius: BorderRadius.all(Radius.circular(20,),),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "B",
+                            style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Center(
+                        child: Text(
+                          "EXIT",
+                          style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+          ],
         ),
       );
     }
