@@ -12,6 +12,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
 import 'package:lottie/lottie.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Screenv8 extends StatefulWidget {
   const Screenv8({Key? key}) : super(key: key);
@@ -27,8 +28,12 @@ class _Screenv8State extends State<Screenv8> {
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 4;
+  int screenValue = 0;
 
+  void sound(int playnumber) {
+    final player = AudioCache();
+    player.play('note$playnumber.wav');
+  }
 
   //List<int> screen = [0, 1, 2];
 
@@ -70,6 +75,7 @@ class _Screenv8State extends State<Screenv8> {
     fontWeight: FontWeight.bold,
     fontFamily: 'Cabin',
   );
+
 
   getScreen() {
     if (screenValue == 0) {

@@ -11,6 +11,7 @@ import 'package:switcher_button/switcher_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Screenv7 extends StatefulWidget {
   const Screenv7({Key? key}) : super(key: key);
@@ -74,10 +75,6 @@ class _Screenv7State extends State<Screenv7> {
     14: [10, 13, 15],
     15: [11, 14],
   };
-
-
-
-
 
   List<MaterialColor> colorizeColors = [
     Colors.purple,
@@ -216,7 +213,6 @@ class _Screenv7State extends State<Screenv7> {
     }
     screenOption[screenValue] = temp;
   }
-
 
   getScreen() {
     if (screenValue == 0) {
