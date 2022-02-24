@@ -1,17 +1,15 @@
 import 'dart:ui';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:switcher_button/switcher_button.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class Screenv7 extends StatefulWidget {
   const Screenv7({Key? key}) : super(key: key);
@@ -21,20 +19,21 @@ class Screenv7 extends StatefulWidget {
 }
 
 class _Screenv7State extends State<Screenv7> {
-  //List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-  List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
+  List<int> numbersOriginal = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+  List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15];
+  //List<int> numbers = [8, 2, 9, 4, 5, 10, 7, 1, 3, 6, 0, 12, 11, 14, 15, 13];
   bool isEmpty = true;
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 0;
+  int screenValue = 2;
 
   Map<int, int>  screenOption = {//Currently selected option on current screen [screen:current option]
     0: 0,
     1: 0,
-    2: 1,
-    3: -1,
-    4: 1,
+    2: 1,//1,2
+    3: -1,//0to15
+    4: 1,//1,2
     5: 0,
   };
 
@@ -93,12 +92,10 @@ class _Screenv7State extends State<Screenv7> {
   selectFlutterBoyControls(selectedButton){//TODO:All controls
     if(selectedButton == "Left"){
       if(screenValue == 2){
-        print("Left");
         setState(() {
           screenOption[screenValue]=1;
         });
       }else if(screenValue == 3){
-        print("working left");
         if(arrowMoveRules[numbers.indexOf(0)]![0] != -1){
           setState(() {
             screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![0];
@@ -111,12 +108,10 @@ class _Screenv7State extends State<Screenv7> {
       }
     }else if(selectedButton == "Right"){
       if(screenValue == 2){
-        print("Right");
         setState(() {
           screenOption[screenValue]=2;
         });
       }else if(screenValue == 3){
-        print("working right");
         if(arrowMoveRules[numbers.indexOf(0)]![1] != -1){
           setState(() {
             screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![1];
@@ -129,7 +124,6 @@ class _Screenv7State extends State<Screenv7> {
       }
     }else if(selectedButton == "Up"){
       if(screenValue == 3){
-        print("working up");
         if(arrowMoveRules[numbers.indexOf(0)]![2] != -1){
           setState(() {
             screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![2];
@@ -138,7 +132,6 @@ class _Screenv7State extends State<Screenv7> {
       }
     }else if(selectedButton == "Down"){
       if(screenValue == 3){
-        print("working down");
         if(arrowMoveRules[numbers.indexOf(0)]![3] != -1){
           setState(() {
             screenOption[screenValue]=arrowMoveRules[numbers.indexOf(0)]![3];
@@ -149,6 +142,7 @@ class _Screenv7State extends State<Screenv7> {
       if(screenValue == 2){
         if(screenOption[screenValue] == 1){
           setState(() {
+            //numbers.shuffle();//TODO:comment during testing
             screenValue = 3;
           });
           screenOption[screenValue]=results[numbers.indexOf(0)]![0];
@@ -159,9 +153,15 @@ class _Screenv7State extends State<Screenv7> {
         }
       }else if(screenValue == 3){
         movePuzzlePiece();
+        if(listEquals(numbers,numbersOriginal)){
+          setState(() {
+            screenValue = 4;
+          });
+        }
       }else if(screenValue == 4){
         if(screenOption[screenValue] == 1){
           setState(() {
+            numbers.shuffle();
             screenValue = 3;
           });
           screenOption[screenValue]=results[numbers.indexOf(0)]![0];
@@ -172,6 +172,11 @@ class _Screenv7State extends State<Screenv7> {
         }
       }
     }else if(selectedButton == "B"){
+      // if(screenValue == 2){
+      //   AudioCache player = AudioCache(prefix: 'assets/');
+      //   player.play('note4.mp3');
+      //
+      // }else
       if(screenValue == 3){
         setState(() {
           screenValue = 2;
@@ -182,9 +187,18 @@ class _Screenv7State extends State<Screenv7> {
         });
       }
     }else if(selectedButton == "Start"){
-
+      if(screenValue == 2){
+        setState(() {
+          screenValue = 3;
+        });
+        screenOption[screenValue]=results[numbers.indexOf(0)]![0];
+      }
     }else if(selectedButton == "Select"){
-
+      if(screenValue == 2){
+        setState(() {
+          screenValue = 5;
+        });
+      }
     }
   }
 
