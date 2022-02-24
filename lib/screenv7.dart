@@ -26,10 +26,7 @@ class _Screenv7State extends State<Screenv7> {
   bool isFlutterBoySwitchedOn = false;
   int move = 0;
   bool isFinished = false;
-  int screenValue = 5;
-
-  //List<int> screen = [0, 1, 2];
-
+  int screenValue = 0;
 
   Map<int, int>  screenOption = {//Currently selected option on current screen [screen:current option]
     0: 0,
@@ -159,7 +156,9 @@ class _Screenv7State extends State<Screenv7> {
           });
           screenOption[screenValue]=results[numbers.indexOf(0)]![0];
         }else if(screenOption[screenValue] == 2){
-          print("A Screen2");
+          setState(() {
+            screenValue = 5;
+          });
         }
       }else if(screenValue == 3){
         movePuzzlePiece();
@@ -177,6 +176,10 @@ class _Screenv7State extends State<Screenv7> {
       }
     }else if(selectedButton == "B"){
       if(screenValue == 3){
+        setState(() {
+          screenValue = 2;
+        });
+      }else if(screenValue == 5){
         setState(() {
           screenValue = 2;
         });
@@ -535,25 +538,54 @@ class _Screenv7State extends State<Screenv7> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
                 'GAME CONTROLS',
                 style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Text(
-                'Left',
-                style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Text(
+                    'Navigate: ',
+                    style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Icon(Icons.gamepad,color: Colors.white,),
+                SizedBox(
+                  width: 82,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Text(
+                    'Move: ',
+                    style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  height: 18,
+                  width: 18,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "A",
+                      style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 18,),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Text(
-                'KEYBOARD',
+                'KEYBOARD LAYOUT',
                 style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
@@ -610,7 +642,7 @@ class _Screenv7State extends State<Screenv7> {
                             style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        Icon(Icons.arrow_forward_rounded,color: Colors.white,),
                         SizedBox(
                           width: 82,
                         ),
@@ -646,7 +678,7 @@ class _Screenv7State extends State<Screenv7> {
                             style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        Icon(Icons.arrow_upward_rounded,color: Colors.white,),
                         SizedBox(
                           width: 50,
                         ),
@@ -683,7 +715,7 @@ class _Screenv7State extends State<Screenv7> {
                             style: TextStyle(color: Colors. white,fontFamily: 'VT323', fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(Icons.arrow_back_rounded,color: Colors.white,),
+                        Icon(Icons.arrow_downward_rounded,color: Colors.white,),
                         SizedBox(
                           width: 50,
                         ),
@@ -717,7 +749,7 @@ class _Screenv7State extends State<Screenv7> {
             ),
 
             SizedBox(
-              height: 50,//TODO:Edit here
+              height: 20,//TODO:Edit here
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
