@@ -153,11 +153,13 @@ class _Screenv7State extends State<Screenv7> {
         }
       }else if(screenValue == 3){
         movePuzzlePiece();
-        if(listEquals(numbers,numbersOriginal)){
-          setState(() {
-            screenValue = 4;
-          });
-        }
+        Future.delayed(Duration(milliseconds: 500),(){
+          if(listEquals(numbers,numbersOriginal)){//Compares original list with current puzzle
+            setState(() {
+              screenValue = 4;
+            });
+          }
+        });
       }else if(screenValue == 4){
         if(screenOption[screenValue] == 1){
           setState(() {
