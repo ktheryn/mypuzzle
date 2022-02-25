@@ -149,6 +149,7 @@ class _Screenv10State extends State<Screenv10> {
         if(screenOption[screenValue] == 1){
           setState(() {
             //numbers.shuffle();//TODO:comment during testing
+            move = 0;
             screenValue = 3;
             sound(3);
           });
@@ -178,6 +179,7 @@ class _Screenv10State extends State<Screenv10> {
           setState(() {
             numbers.shuffle();
             screenValue = 3;
+            move = 0;
             sound(3);
           });
           screenOption[screenValue]=results[numbers.indexOf(0)]![0];
