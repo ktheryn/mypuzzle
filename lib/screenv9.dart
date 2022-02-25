@@ -17,7 +17,6 @@ import 'package:just_audio/just_audio.dart';
 class Screenv9 extends StatefulWidget {
   const Screenv9({Key? key}) : super(key: key);
 
-
   @override
   _Screenv9State createState() => _Screenv9State();
 }
