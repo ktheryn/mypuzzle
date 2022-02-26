@@ -85,9 +85,13 @@ class _FlutterBoyState extends State<FlutterBoy> {
     fontFamily: 'Cabin',
   );
 
-  void playFlutterBoyKeyNote(int audioNumber) {
+  void flutterBoyKeyNote(int audioNumber, String playerMode) {
     AudioCache player = AudioCache(prefix: 'assets/');
-    player.play('note$audioNumber.wav');
+    if(playerMode == 'play'){
+      player.play('note$audioNumber.wav');
+    }else{
+      player.clear(Uri.parse('note$audioNumber.wav'));
+    }
   }
 
   pressedFlutterBoyControlButton(pressedControlButton){
@@ -95,7 +99,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
       if(currentScreen == 2){
         setState(() {
           screenOptionSet[currentScreen]=1;
-          playFlutterBoyKeyNote(3);
+          flutterBoyKeyNote(3,'play');
         });
       }else if(currentScreen == 3){
         if(arrowKeyPuzzleMoveSet[puzzleGridList.indexOf(0)]![0] != -1){
@@ -106,14 +110,14 @@ class _FlutterBoyState extends State<FlutterBoy> {
       }else if(currentScreen == 4){
         setState(() {
           screenOptionSet[currentScreen]=1;
-          playFlutterBoyKeyNote(3);
+          flutterBoyKeyNote(3,'play');
         });
       }
     }else if(pressedControlButton == "Right"){
       if(currentScreen == 2){
         setState(() {
           screenOptionSet[currentScreen]=2;
-          playFlutterBoyKeyNote(3);
+          flutterBoyKeyNote(3,'play');
         });
       }else if(currentScreen == 3){
         if(arrowKeyPuzzleMoveSet[puzzleGridList.indexOf(0)]![1] != -1){
@@ -124,7 +128,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
       }else if(currentScreen == 4){
         setState(() {
           screenOptionSet[currentScreen]=2;
-          playFlutterBoyKeyNote(3);
+          flutterBoyKeyNote(3,'play');
         });
       }
     }else if(pressedControlButton == "Up"){
@@ -150,14 +154,14 @@ class _FlutterBoyState extends State<FlutterBoy> {
             //numbers.shuffle();//TODO:comment during testing
             currentPuzzleMoves = 0;
             currentScreen = 3;
-            playFlutterBoyKeyNote(3);
+            flutterBoyKeyNote(3,'play');
           });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
-          playFlutterBoyKeyNote(11);
+          flutterBoyKeyNote(11,'play');
         }else if(screenOptionSet[currentScreen] == 2){
           setState(() {
             currentScreen = 5;
-            playFlutterBoyKeyNote(3);
+            flutterBoyKeyNote(3,'play');
           });
         }
       }else if(currentScreen == 3){
@@ -168,11 +172,9 @@ class _FlutterBoyState extends State<FlutterBoy> {
               currentScreen = 4;
             });
           });
-          playFlutterBoyKeyNote(6);
-          //TODO:audiodelete
-          AudioPlayer.players.clear();
+          flutterBoyKeyNote(6,'play');
         }else{
-          playFlutterBoyKeyNote(2);
+          flutterBoyKeyNote(2,'play');
         }
       }else if(currentScreen == 4){
         if(screenOptionSet[currentScreen] == 1){
@@ -180,13 +182,13 @@ class _FlutterBoyState extends State<FlutterBoy> {
             puzzleGridList.shuffle();
             currentScreen = 3;
             currentPuzzleMoves = 0;
-            playFlutterBoyKeyNote(3);
+            flutterBoyKeyNote(3,'play');
           });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
         }else if(screenOptionSet[currentScreen] == 2){
           setState(() {
             currentScreen = 2;
-            playFlutterBoyKeyNote(3);
+            flutterBoyKeyNote(3,'play');
           });
         }
       }
@@ -194,12 +196,12 @@ class _FlutterBoyState extends State<FlutterBoy> {
       if(currentScreen == 3){
         setState(() {
           currentScreen = 2;
-          playFlutterBoyKeyNote(3);
+          flutterBoyKeyNote(3,'play');
         });
       }else if(currentScreen == 5){
         setState(() {
           currentScreen = 2;
-          playFlutterBoyKeyNote(3);
+          flutterBoyKeyNote(3,'play');
         });
       }
     }else if(pressedControlButton == "Start"){
@@ -813,7 +815,6 @@ class _FlutterBoyState extends State<FlutterBoy> {
     final size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
-
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
@@ -893,13 +894,13 @@ class _FlutterBoyState extends State<FlutterBoy> {
                                     setState(() {
                                       isFlutterBoySwitchedOn = true;
                                       currentScreen = 1;
-                                      playFlutterBoyKeyNote(9);
+                                      flutterBoyKeyNote(9,'play');
                                     });
                                   } else {
                                     setState(() {
                                       isFlutterBoySwitchedOn = false;
                                       currentScreen = 0;
-                                      playFlutterBoyKeyNote(10);
+                                      flutterBoyKeyNote(10,'play');
                                     });
                                   }
                                 },
