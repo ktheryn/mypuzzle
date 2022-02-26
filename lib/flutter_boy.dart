@@ -95,6 +95,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
       if(currentScreen == 2){
         setState(() {
           screenOptionSet[currentScreen]=1;
+          playFlutterBoyKeyNote(3);
         });
       }else if(currentScreen == 3){
         if(arrowKeyPuzzleMoveSet[puzzleGridList.indexOf(0)]![0] != -1){
@@ -105,12 +106,14 @@ class _FlutterBoyState extends State<FlutterBoy> {
       }else if(currentScreen == 4){
         setState(() {
           screenOptionSet[currentScreen]=1;
+          playFlutterBoyKeyNote(3);
         });
       }
     }else if(pressedControlButton == "Right"){
       if(currentScreen == 2){
         setState(() {
           screenOptionSet[currentScreen]=2;
+          playFlutterBoyKeyNote(3);
         });
       }else if(currentScreen == 3){
         if(arrowKeyPuzzleMoveSet[puzzleGridList.indexOf(0)]![1] != -1){
@@ -121,6 +124,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
       }else if(currentScreen == 4){
         setState(() {
           screenOptionSet[currentScreen]=2;
+          playFlutterBoyKeyNote(3);
         });
       }
     }else if(pressedControlButton == "Up"){
@@ -149,6 +153,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
             playFlutterBoyKeyNote(3);
           });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
+          playFlutterBoyKeyNote(11);
         }else if(screenOptionSet[currentScreen] == 2){
           setState(() {
             currentScreen = 5;
@@ -164,6 +169,8 @@ class _FlutterBoyState extends State<FlutterBoy> {
             });
           });
           playFlutterBoyKeyNote(6);
+          //TODO:audiodelete
+          AudioPlayer.players.clear();
         }else{
           playFlutterBoyKeyNote(2);
         }
