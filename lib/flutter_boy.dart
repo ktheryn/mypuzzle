@@ -85,14 +85,11 @@ class _FlutterBoyState extends State<FlutterBoy> {
     fontFamily: 'Cabin',
   );
 
-  AudioCache cache = AudioCache(prefix: 'assets/');
-  late AudioPlayer player;
-
   Future<void> flutterBoyKeyNote(int audioNumber, String playerMode) async {
     if(playerMode == 'play'){
-      player = await cache.play('note$audioNumber.wav');
+      AudioPlayer(playerId: audioNumber.toString()).play('assets/note$audioNumber.wav');
     }else{
-      player.stop();
+      AudioPlayer(playerId: audioNumber.toString()).release();
     }
   }
 
@@ -188,6 +185,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
             flutterBoyKeyNote(3,'play');
           });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
+          flutterBoyKeyNote(11,'play');
         }else if(screenOptionSet[currentScreen] == 2){
           setState(() {
             currentScreen = 2;
@@ -201,6 +199,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
           currentScreen = 2;
           flutterBoyKeyNote(3,'play');
         });
+        flutterBoyKeyNote(11,'stop');
       }else if(currentScreen == 5){
         setState(() {
           currentScreen = 2;
