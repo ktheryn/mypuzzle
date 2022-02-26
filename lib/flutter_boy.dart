@@ -85,12 +85,14 @@ class _FlutterBoyState extends State<FlutterBoy> {
     fontFamily: 'Cabin',
   );
 
-  void flutterBoyKeyNote(int audioNumber, String playerMode) {
-    AudioCache player = AudioCache(prefix: 'assets/');
+  AudioCache cache = AudioCache(prefix: 'assets/');
+  late AudioPlayer player;
+
+  Future<void> flutterBoyKeyNote(int audioNumber, String playerMode) async {
     if(playerMode == 'play'){
-      player.play('note$audioNumber.wav');
+      player = await cache.play('note$audioNumber.wav');
     }else{
-      player.clear(Uri.parse('note$audioNumber.wav'));
+      player.stop();
     }
   }
 
@@ -172,6 +174,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
               currentScreen = 4;
             });
           });
+          flutterBoyKeyNote(11,'stop');
           flutterBoyKeyNote(6,'play');
         }else{
           flutterBoyKeyNote(2,'play');
