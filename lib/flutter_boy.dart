@@ -87,7 +87,13 @@ class _FlutterBoyState extends State<FlutterBoy> {
 
   Future<void> flutterBoyKeyNote(int audioNumber, String playerMode) async {
     if(playerMode == 'play'){
-      AudioPlayer(playerId: audioNumber.toString()).play('assets/note$audioNumber.wav');
+      if(audioNumber == 12){
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).setUrl('assets/note$audioNumber.wav');
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).setReleaseMode(ReleaseMode.LOOP);
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).resume();
+      }else{
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).play('assets/note$audioNumber.wav');
+      }
     }else{
       AudioPlayer(playerId: audioNumber.toString()).release();
     }
@@ -156,7 +162,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
             flutterBoyKeyNote(3,'play');
           });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
-          flutterBoyKeyNote(11,'play');
+          flutterBoyKeyNote(12,'play');
         }else if(screenOptionSet[currentScreen] == 2){
           setState(() {
             currentScreen = 5;
@@ -171,7 +177,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
               currentScreen = 4;
             });
           });
-          flutterBoyKeyNote(11,'stop');
+          flutterBoyKeyNote(12,'stop');
           flutterBoyKeyNote(6,'play');
         }else{
           flutterBoyKeyNote(2,'play');
@@ -185,7 +191,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
             flutterBoyKeyNote(3,'play');
           });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
-          flutterBoyKeyNote(11,'play');
+          flutterBoyKeyNote(12,'play');
         }else if(screenOptionSet[currentScreen] == 2){
           setState(() {
             currentScreen = 2;
@@ -199,7 +205,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
           currentScreen = 2;
           flutterBoyKeyNote(3,'play');
         });
-        flutterBoyKeyNote(11,'stop');
+        flutterBoyKeyNote(12,'stop');
       }else if(currentScreen == 5){
         setState(() {
           currentScreen = 2;
