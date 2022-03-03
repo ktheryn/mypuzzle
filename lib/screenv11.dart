@@ -1,5 +1,3 @@
-//FINAL DRAFT
-import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:switcher_button/switcher_button.dart';
-import 'package:rive/rive.dart' hide LinearGradient;
+import 'package:rive/rive.dart';
 
 class FlutterBoy extends StatefulWidget {
   const FlutterBoy({Key? key}) : super(key: key);
@@ -17,6 +15,7 @@ class FlutterBoy extends StatefulWidget {
 }
 
 class _FlutterBoyState extends State<FlutterBoy> {
+
   List<int> puzzleGridListOriginal = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
   List<int> puzzleGridList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15];
 
@@ -179,12 +178,12 @@ class _FlutterBoyState extends State<FlutterBoy> {
         }
       }else if(currentScreen == 4){
         if(screenOptionSet[currentScreen] == 1){
-            setState(() {
-              puzzleGridList.shuffle();
-              currentScreen = 3;
-              currentPuzzleMoves = 0;
-              flutterBoyKeyNote(3,'play');
-            });
+          setState(() {
+            puzzleGridList.shuffle();
+            currentScreen = 3;
+            currentPuzzleMoves = 0;
+            flutterBoyKeyNote(3,'play');
+          });
           screenOptionSet[currentScreen]=puzzlePieceSlideLocationsSet[puzzleGridList.indexOf(0)]![0];
           flutterBoyKeyNote(12,'play');
         }else if(screenOptionSet[currentScreen] == 2){
@@ -472,13 +471,14 @@ class _FlutterBoyState extends State<FlutterBoy> {
     }else if (currentScreen == 4) {
       return Container(
         color: const Color(0xFF414143),
-        child: Column(
+        child: Stack(
           children: [
-            Expanded(
-              child: Center(
-                child: RiveAnimation.asset(
-                  'assets/trophy2.riv',
-                ),
+            Center(
+              child: Lottie.asset(
+                'winner.json',
+                width: 300.0,
+                repeat: true,
+                fit: BoxFit.fitWidth,
               ),
             ),
             Column(
