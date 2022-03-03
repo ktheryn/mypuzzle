@@ -88,7 +88,13 @@ class _FlutterBoyState extends State<FlutterBoy> {
 
   Future<void> flutterBoyKeyNote(int audioNumber, String playerMode) async {
     if(playerMode == 'play'){
-      AudioPlayer(playerId: audioNumber.toString()).play('assets/note$audioNumber.wav');
+      if(audioNumber == 12){
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).setUrl('assets/note$audioNumber.wav');
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).setReleaseMode(ReleaseMode.LOOP);
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).resume();
+      }else{
+        AudioPlayer(playerId: audioNumber.toString(),mode: PlayerMode.LOW_LATENCY).play('assets/note$audioNumber.wav');
+      }
     }else{
       AudioPlayer(playerId: audioNumber.toString()).release();
     }
