@@ -79,6 +79,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
     Colors.red,
   ];
 
+  //TODO
   TextStyle flutterBoyLogoTextStyle = const TextStyle(
     fontSize: 40.0,
     fontWeight: FontWeight.bold,
