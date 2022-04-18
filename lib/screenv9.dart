@@ -12,7 +12,6 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:rive/rive.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:just_audio/just_audio.dart';
 
 class Screenv9 extends StatefulWidget {
   const Screenv9({Key? key}) : super(key: key);

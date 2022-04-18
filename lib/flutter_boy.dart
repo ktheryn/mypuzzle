@@ -846,6 +846,7 @@ class _FlutterBoyState extends State<FlutterBoy> {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           height: height,
           width: width,
