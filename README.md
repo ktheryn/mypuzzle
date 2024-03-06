@@ -1,16 +1,13 @@
-# mypuzzle
+# FlutterBoy
 
-A new Flutter project.
+FlutterBoy brings life to old generation gameboy style gaming into a phone. It currently can be used to play puzzle solving game. Runs on both web and mobile. 
 
-## Getting Started
+<img width="150" alt="image" src="https://github.com/ktheryn/mypuzzle/assets/87255985/5be4092b-29bb-4c29-97cd-882e2c69dcaf">
 
-This project is a starting point for a Flutter application.
+<img width="150" alt="image" src="https://github.com/ktheryn/mypuzzle/assets/87255985/f1a155bf-6f95-483c-819f-00557d63fcab">
 
-A few resources to get you started if this is your first Flutter project:
+<img width="150" alt="image" src="https://github.com/ktheryn/mypuzzle/assets/87255985/0c8b22e0-fe2c-4fd9-af76-8a15d68872d4">
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<img width="150" alt="image" src="https://github.com/ktheryn/mypuzzle/assets/87255985/23cdfcf0-3187-4282-9705-b8e7ab7d9e14">
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="150" alt="image" src="https://github.com/ktheryn/mypuzzle/assets/87255985/faea209c-3c1f-42df-90a0-f88fe725775e">
